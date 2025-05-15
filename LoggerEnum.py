@@ -1,18 +1,33 @@
 import logging
+import datetime
+from enum import Enum
 
-
-#Will you use this?
-"""
 class LoggerEnum(Enum):
     DEBUG = 0
     INFO = 1
     WARNING = 2
     ERROR = 3
     CRITICAL = 4
-"""
 
-#Let user decide logging level
-message = ("Log level is at: " (level))
+class DateTimeMessage(self):
+    def __init__(self):
+        datetime.now() + ""
+
+class CustomLogger:
+    def __init__(self, level: LoggerEnum):
+        self.level = level
+        logging.basicConfig(level=self.convert_enum_to_logging_level())
+        self.logger = logging.getLogger("Logger")
+
+    def _convert_enum_to_logging_level(self):
+        level_map = {
+            LoggerEnum.DEBUG: logging.DEBUG,
+            LoggerEnum.INFO: logging.INFO,
+            LoggerEnum.WARNING: logging.WARNING,
+            LoggerEnum.ERROR: logging.ERROR,
+            LoggerEnum.CRITICAL: logging.CRITICAL,
+        }
+        return level_map[self.level]
 
 class Logging:
     @staticmethod

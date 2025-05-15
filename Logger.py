@@ -1,9 +1,8 @@
+from LoggerEnum import LoggerEnum
 
 
-class Logger:
-    def __init__(self):
-        self = self
+my_logger = CustomLogger(LoggerEnum.WARNING)
 
 
-    #def filterByType(LoggerEnum):
+
  
