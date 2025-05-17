@@ -1,8 +1,14 @@
+# Message.py
 import datetime
 from LoggerEnum import LoggerEnum
+import uuid
 
 class MessageFormatter:
     @staticmethod
-    def format(log_level: LoggerEnum, message: str) -> str:
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        return f"[{timestamp}] [{log_level.name}] {message}"
+    def format(log_level: LoggerEnum, message: str) -> dict:
+        return {
+            "log_id": str(uuid.uuid4()),
+            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            "level": log_level.name,
+            "message": message
+        }

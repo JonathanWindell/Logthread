@@ -9,7 +9,7 @@ class LoggerEnum(Enum):
     ERROR = 3
     CRITICAL = 4
 
-class DateTimeMessage(self):
+class DateTimeMessage:
     def __init__(self):
         datetime.now() + ""
 
