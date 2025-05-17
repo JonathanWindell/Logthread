@@ -1,6 +1,8 @@
 import datetime
 from LoggerEnum import LoggerEnum
 
-class DateTimeMessage(self):
-    def __init__(self):
-        "A log has been added at: " + datetime.now() + LoggerEnum.INFO
+class MessageFormatter:
+    @staticmethod
+    def format(log_level: LoggerEnum, message: str) -> str:
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        return f"[{timestamp}] [{log_level.name}] {message}"
