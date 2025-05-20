@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer
 import boto3
 from app.auth.models import User, Token
 from app.auth.utilsJWK import decode_token
-from app.ConfigCognito import REGION, CLIENT_ID
+from app.config import REGION, CLIENT_ID
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 router = APIRouter()
