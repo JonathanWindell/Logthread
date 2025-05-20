@@ -6,16 +6,7 @@ dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('Logs')
 
 def send_log(item: dict):
-    """
-    Skickar en färdigpaketerad dict till DynamoDB.
-    Förväntar sig:
-      {
-        "log_id": str,
-        "timestamp": str,
-        "level": str,
-        "message": str
-      }
-    """
+    
     table.put_item(Item=item)
 
 def get_log(log_id):

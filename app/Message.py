@@ -1,4 +1,3 @@
-# Message.py
 import datetime
 from app.LoggerEnum import LoggerEnum
 import uuid

@@ -2,7 +2,7 @@ import requests
 from jose import jwt, jwk
 from jose.utils import base64url_decode
 from fastapi import HTTPException, status
-from app.config import JWK_URL, USER_POOL_ID
+from app.Config import JWK_URL, USER_POOL_ID
 
 _jwk_cache = {}
 
