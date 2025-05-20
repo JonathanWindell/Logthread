@@ -1,6 +1,6 @@
-from LoggerEnum import LoggerEnum
-from Message import MessageFormatter
-from LoggerAPI import send_log
+from app.LoggerEnum import LoggerEnum
+from app.Message import MessageFormatter
+from app.LoggerAPI import send_log
 
 class Logger:
     def __init__(self, level: LoggerEnum = LoggerEnum.INFO):
