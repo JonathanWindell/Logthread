@@ -2,13 +2,29 @@
 #from app.LoggerEnum import LoggerEnum
 #from fastapi import FastAPI
 #from app.auth.Router import router as auth_router
-from app.logging.MessageFormatter import MessageFormatter
-from app.LoggerEnum import LoggerEnum
+
+# app/main.py
+# app/main.py
+from app.sns.SnsHandler import send_critical_notification
 
 if __name__ == "__main__":
-    MessageFormatter.log_message(LoggerEnum.CRITICAL, "En allvarlig händelse inträffade!")
+    # Testmeddelande till SNS
+    message = "Detta är ett testmeddelande från main.py för att bekräfta SNS-funktionalitet."
+    send_critical_notification(message)
 
-sns.publish(subject="Test", message="Funkar SNS?")
+
+
+
+
+"""
+sns_client = boto3.client("sns", region_name="eu-north-1")
+sns = SNSWrapper(sns_client, topic_name="LoggifyCritical")
+
+sns.publish(
+    subject="Enkel SNS-test",
+    message="Testar SNS direkt från main.py utan funktion."
+)
+"""
 
 
 #Test call to dynamoDB

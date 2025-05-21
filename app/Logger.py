@@ -1,5 +1,5 @@
 from app.LoggerEnum import LoggerEnum
-from app.Message import MessageFormatter
+from app.MessageFormatter import MessageFormatter
 from app.LoggerAPI import send_log
 
 class Logger:
