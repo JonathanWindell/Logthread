@@ -14,8 +14,6 @@ if __name__ == "__main__":
 
 
 
-
-
 """
 sns_client = boto3.client("sns", region_name="eu-north-1")
 sns = SNSWrapper(sns_client, topic_name="LoggifyCritical")

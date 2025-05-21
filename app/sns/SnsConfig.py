@@ -1,4 +1,3 @@
-# app/sns/SnsConfig.py
 import boto3
 from app.sns.SnsWrapper import SNSWrapper
 

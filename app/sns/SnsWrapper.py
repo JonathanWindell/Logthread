@@ -1,4 +1,3 @@
-# app/sns/SnsWrapper.py
 import logging
 from botocore.exceptions import ClientError
 
