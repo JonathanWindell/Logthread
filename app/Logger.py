@@ -1,6 +1,7 @@
 from app.LoggerEnum import LoggerEnum
 from app.MessageFormatter import MessageFormatter
 from app.LoggerAPI import send_log
+from app.sns.SnsHandler import send_critical_notification
 
 class Logger:
     def __init__(self, level: LoggerEnum = LoggerEnum.INFO):
@@ -15,4 +16,8 @@ class Logger:
             return
 
         item = self.formatter.format(level, message)
+
+        if level == LoggerEnum.CRITICAL:
+            send_critical_notification(item["message"])
+
         send_log(item)

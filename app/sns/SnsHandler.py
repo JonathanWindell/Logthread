@@ -1,4 +1,3 @@
-# app/sns/SnsHandler.py
 from app.sns.SnsConfig import sns_wrapper
 
 def send_critical_notification(message: str, subject: str = "CRITICAL LOG"):
