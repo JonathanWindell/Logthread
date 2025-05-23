@@ -1,9 +1,10 @@
 import boto3
-from app.service.SnsWrapper import SNSWrapper
+from app.backend.service.SnsWrapper import SNSWrapper
+from Config import SNS_TOPIC_ARN
 
 # Region och Topic ARN 
 SNS_REGION = "eu-north-1"
-TOPIC_ARN = "arn:aws:sns:eu-north-1:027625171538:Loggify"
+TOPIC_ARN = SNS_TOPIC_ARN
 
 sns_client = boto3.client("sns", region_name=SNS_REGION)
 sns_wrapper = SNSWrapper(sns_client, topic_arn=TOPIC_ARN)

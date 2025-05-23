@@ -1,4 +1,4 @@
-from app.service.SnsConfig import sns_wrapper
+from app.backend.service.SnsConfig import sns_wrapper
 
 def send_critical_notification(message: str, subject: str = "CRITICAL LOG"):
     try:
