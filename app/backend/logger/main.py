@@ -1,8 +1,8 @@
-from app.Logger import Logger
-from app.LoggerEnum import LoggerEnum
-from app.service.SnsHandler import send_critical_notification
+from app.backend.logger.Logger import Logger
+from app.backend.logger.LoggerEnum import LoggerEnum
+from app.backend.service.SnsHandler import send_critical_notification
 from fastapi import FastAPI
-from app.auth.Router import router as auth_router
+from app.backend.auth.Router import router as auth_router
 
 # Initiera FastAPI
 app = FastAPI()

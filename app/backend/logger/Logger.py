@@ -1,7 +1,7 @@
-from app.LoggerEnum import LoggerEnum
-from app.MessageFormatter import MessageFormatter
-from app.LoggerAPI import send_log
-from app.service.SnsHandler import send_critical_notification
+from app.backend.logger.LoggerEnum import LoggerEnum
+from app.backend.logger.MessageFormatter import MessageFormatter
+from app.backend.logger.LoggerAPI import send_log
+from app.backend.service.SnsHandler import send_critical_notification
 
 class Logger:
     def __init__(self, level: LoggerEnum = LoggerEnum.INFO):
