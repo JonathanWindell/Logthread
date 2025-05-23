@@ -1,6 +1,7 @@
-const CLIENT_ID = "DIN_CLIENT_ID";
+import React from 'react';
+const CLIENT_ID = "59dqniop3rslpov6lm5hti8tl";
 const REDIRECT_URI = "http://localhost:5173/callback";
-const DOMAIN = "DIN_COGNITO_DOMAIN"; // utan https://
+const DOMAIN = "eu-north-1cjgmxdbme.auth.eu-north-1.amazoncognito.com"; 
 
 function Login() {
   const login = () => {
