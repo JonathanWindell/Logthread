@@ -1,4 +1,3 @@
-
 from app.Logger import Logger
 from app.LoggerEnum import LoggerEnum
 from app.sns.SnsHandler import send_critical_notification
