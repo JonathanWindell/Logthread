@@ -1,4 +1,4 @@
-from app.backend.logger.LoggerEnum import LoggerEnum
+from app.backend.logging.LoggerEnum import LoggerEnum
 import datetime
 import uuid
 
