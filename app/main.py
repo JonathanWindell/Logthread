@@ -1,6 +1,6 @@
 from app.Logger import Logger
 from app.LoggerEnum import LoggerEnum
-from app.sns.SnsHandler import send_critical_notification
+from app.service.SnsHandler import send_critical_notification
 from fastapi import FastAPI
 from app.auth.Router import router as auth_router
 

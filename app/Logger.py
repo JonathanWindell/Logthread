@@ -1,7 +1,7 @@
 from app.LoggerEnum import LoggerEnum
 from app.MessageFormatter import MessageFormatter
 from app.LoggerAPI import send_log
-from app.sns.SnsHandler import send_critical_notification
+from app.service.SnsHandler import send_critical_notification
 
 class Logger:
     def __init__(self, level: LoggerEnum = LoggerEnum.INFO):

@@ -1,5 +1,5 @@
 import boto3
-from app.sns.SnsWrapper import SNSWrapper
+from app.service.SnsWrapper import SNSWrapper
 
 # Region och Topic ARN 
 SNS_REGION = "eu-north-1"
