@@ -1,7 +1,7 @@
 import React from 'react';
-const CLIENT_ID = "59dqniop3rslpov6lm5hti8tl";
-const REDIRECT_URI = "http://localhost:5173/callback";
-const DOMAIN = "eu-north-1cjgmxdbme.auth.eu-north-1.amazoncognito.com"; 
+const CLIENT_ID = import.meta.env.VITE_COGNITO_CLIENT_ID;
+const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
+const DOMAIN = import.meta.env.VITE_COGNITO_DOMAIN;
 
 function Login() {
   const login = () => {
