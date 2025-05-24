@@ -1,5 +1,6 @@
 
 #Enviroment variables
+.env
 *.env
 
 #Virtual enviroments
