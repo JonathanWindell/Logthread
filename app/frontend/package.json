@@ -12,6 +12,8 @@
     "vite": "^6.3.5"
   },
   "dependencies": {
+    "oidc-client-ts": "^3.2.1",
+    "react-oidc-context": "^3.3.0",
     "react-router-dom": "^7.6.0"
   }
 }
