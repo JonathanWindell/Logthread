@@ -27,16 +27,14 @@ function App() {
         auth.isAuthenticated ? (
           <div>
             <pre> Hello: {auth.user?.profile.email} </pre>
-            <pre> ID Token: {auth.user?.id_token} </pre>
-            <pre> Access Token: {auth.user?.access_token} </pre>
-            <pre> Refresh Token: {auth.user?.refresh_token} </pre>
-            <button onClick={() => auth.removeUser()}>Sign out</button>
-            <a href="/dashboard">Gå till Dashboard</a>
+            <a href="/dashboard">Go to dashboard</a>
           </div>
         ) : (
-          <div>
-            <button onClick={() => auth.signinRedirect()}>Sign in</button>
-            <button onClick={() => signOutRedirect()}>Sign out</button>
+          <div className="login-container">
+            <h1>LogThread</h1>
+            <div className="tagline">Weave through your logs seamlessly.</div>
+            <p>Sign in or Register to access dashboard</p>
+            <button className="btn" onClick={() => auth.signinRedirect()}>Register / Sign in</button>
           </div>
         )
       } />
