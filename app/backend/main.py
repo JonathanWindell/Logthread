@@ -22,6 +22,7 @@ def test_logging():
 
     send_critical_notification("Manuellt test av SNS")
 
+    
 if __name__ == "__main__":
     import uvicorn
     # Kör tester först
