@@ -2,11 +2,9 @@ from app.backend.logging.Logger import Logger
 from app.backend.logging.LoggerEnum import LoggerEnum
 from app.backend.service.SnsHandler import send_critical_notification
 from fastapi import FastAPI
-from app.backend.auth.Router import router as auth_router
 
 # Initiera FastAPI
 app = FastAPI()
-app.include_router(auth_router)
 
 @app.get("/")
 def read_root():
