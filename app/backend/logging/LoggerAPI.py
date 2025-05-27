@@ -1,5 +1,6 @@
 import boto3
 from datetime import datetime, timezone
+from botocore.exceptions import ClientError
 import uuid
 
 dynamodb = boto3.resource('dynamodb')
@@ -21,6 +22,12 @@ def get_log(log_id):
         print(f"Error fetching log: {e}")
         return None
 
+def get_all_items():
+    try:
+        response = table.scan()
+        return response.get('Items', [])
+    except ClientError as e:
+        print(f"Error: {e}")
+        return []
+
 #Function for Global Secondary Index
-#Send logging data to database
-#Function to get logs
