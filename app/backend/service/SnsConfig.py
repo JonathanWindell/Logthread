@@ -1,6 +1,6 @@
 import boto3
 from app.backend.service.SnsWrapper import SNSWrapper
-from Config import SNS_TOPIC_ARN
+from app.backend.config.settings import SNS_TOPIC_ARN
 
 # Region och Topic ARN 
 SNS_REGION = "eu-north-1"
