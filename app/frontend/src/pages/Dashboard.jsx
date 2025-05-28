@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useAuth } from "react-oidc-context";
 import { useNavigate } from "react-router-dom";
+import ApiTable from './ApiTable'
 
 
 function Dashboard() {
@@ -23,11 +24,8 @@ function Dashboard() {
     
     <div className="api-section">
       <h3>API Data</h3>
-
       <div>
-        {logs.map((logs) => (
-          <img key={logs.id} src={logs.url} alt={logs.title} />
-      ))}
+        <ApiTable />
       </div>
     </div>
   

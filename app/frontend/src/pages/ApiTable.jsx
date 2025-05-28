@@ -1,24 +1,33 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { 
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  CircularProgress,
+  Typography
+} from '@mui/material';
 
 /*Fetching data from API*/
 function ApiTable() {
+
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const ApiResponse = await fetch('https://api.example.com/data');
-        if (!response.ok) {
+        const ApiResponse = await fetch('http://localhost:8000/api/logs');
+        if (!ApiResponse.ok) {
           throw new Error('Something went wrong');
         }
         const jsonData = await ApiResponse.json();
-        setData(jsonData);
+        setData(jsonData.logs);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -28,6 +37,17 @@ function ApiTable() {
 
     fetchData();
   }, []);
+
+  const formatDate = (isoString) => {
+  return new Date(isoString).toLocaleString('sv-SE', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+    });
+  };
 
   if (loading) {
     return <CircularProgress />;
@@ -43,26 +63,27 @@ function ApiTable() {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="enkel tabell">
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
-            <TableCell align="right">Namn</TableCell>
-            <TableCell align="right">Ålder</TableCell>
-            <TableCell align="right">E-post</TableCell>
+            <TableCell align="right">Log ID</TableCell>
+            <TableCell align="right">Timestamp</TableCell>
+            <TableCell align="right">Log level</TableCell>
+            <TableCell align="right">Log message</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {data.map((row) => (
             <TableRow
-              key={row.id}
+              key={row.log_id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.id}
+                
               </TableCell>
               <TableCell align="right">{row.log_id}</TableCell>
-              <TableCell align="right">{row.timestamp}</TableCell>
+               <TableCell align="right">{formatDate(row.timestamp)}</TableCell>
               <TableCell align="right">{row.level}</TableCell>
               <TableCell align="right">{row.message}</TableCell>
             </TableRow>
