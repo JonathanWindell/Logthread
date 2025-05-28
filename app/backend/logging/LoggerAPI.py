@@ -37,6 +37,18 @@ def get_all_items():
         print(f"Error: {e}")
         return []
 
+def get_logs_by_level(level: str):
+    try:
+        response = table.scan(
+            FilterExpression='#level = :level_value',
+            ExpressionAttributeNames={'#level': 'level'},  
+            ExpressionAttributeValues={':level_value': level.upper()}
+        )
+        return response.get('Items', [])
+    except ClientError as e:
+        print(f"Error querying by level: {e}")
+        return []
+
 #Will you implement this?
 def get_item_by_id(item_id: str):
     return get_log(item_id)
