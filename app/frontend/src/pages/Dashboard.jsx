@@ -23,12 +23,15 @@ function Dashboard() {
   
     
     <div className="api-section">
-      <h3>API Data</h3>
+      <h3>Log Feed</h3>
       <div>
         <ApiTable />
       </div>
     </div>
-  
+    <div className="critical-logs">
+      <h3>Critical Logs</h3>
+      
+    </div>
       <button className="btn-logout" onClick={signOut}>Logga ut</button>
     </div>
   );

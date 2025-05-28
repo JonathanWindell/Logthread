@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from app.backend.logging.LoggerAPI import get_item_by_id, get_all_items, query_items_by_user, send_log
+from app.backend.logging.LoggerAPI import get_item_by_id, get_all_items, query_items_by_user, send_log, get_logs_by_level
 from datetime import datetime, timezone
 import uuid
 
@@ -16,10 +16,15 @@ def get_log(log_id: str):
 #All logs
 @router.get("/logs")
 def get_all_logs():
-    """Hämta alla logs"""
     logs = get_all_items()
     return {"logs": logs, "count": len(logs)}
 
+#Log level
+@router.get("/logs/level/{level}") 
+def get_level_logs(level: str):
+    logs = get_logs_by_level(level) 
+    return {"logs": logs, "count": len(logs), "level": level.upper()}
+    
 #Get logs based on user
 @router.get("/users/{user_id}/logs")
 def get_user_logs(user_id: str):
