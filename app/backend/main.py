@@ -1,7 +1,7 @@
 from app.backend.logging.Logger import Logger
 from app.backend.logging.LoggerEnum import LoggerEnum
 from app.backend.service.SnsHandler import send_critical_notification
-from app.backend.logging.Routers import router as logs_router
+from app.backend.apifiles.Routers import router as logs_router
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 

@@ -1,6 +1,6 @@
 from app.backend.logging.LoggerEnum import LoggerEnum
 from app.backend.logging.MessageFormatter import MessageFormatter
-from app.backend.logging.LoggerAPI import send_log
+from app.backend.apifiles.LoggerAPI import send_log
 from app.backend.service.SnsHandler import send_critical_notification
 
 class Logger:
