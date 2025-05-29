@@ -25,12 +25,13 @@ def get_level_logs(level: str):
     logs = get_logs_by_level(level) 
     return {"logs": logs, "count": len(logs), "level": level.upper()}
     
-#Get logs based on user
+#Get logs based on user. Will you use this?
 @router.get("/users/{user_id}/logs")
 def get_user_logs(user_id: str):
-    """Hämta alla logs för en specifik användare"""
     logs = query_items_by_user(user_id)
     return {"logs": logs, "count": len(logs)}
+
+
 
 #Post logs to dynamoDB
 @router.post("/logs")

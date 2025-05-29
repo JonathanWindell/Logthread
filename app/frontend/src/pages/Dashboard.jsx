@@ -19,7 +19,7 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
       <h1>Dashboard</h1>
-      <h2>Välkommen, {auth.user?.profile.email}!</h2>
+      <h2>Welcome, {auth.user?.profile.email}!</h2>
       <p>Log Dashboard</p>
   
       <div className="api-section">
