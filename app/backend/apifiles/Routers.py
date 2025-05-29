@@ -1,9 +1,27 @@
 from fastapi import APIRouter, HTTPException
-from app.backend.apifiles.LoggerAPI import get_item_by_id, get_all_items, query_items_by_user, send_log, get_logs_by_level
+from app.backend.apifiles.LoggerAPI import get_item_by_id, get_all_items, query_items_by_user, send_log, get_logs_by_level, get_number_of_logs_per_level
 from datetime import datetime, timezone
 import uuid
 
 router = APIRouter()
+
+#All logs
+@router.get("/logs")
+def get_all_logs():
+    logs = get_all_items()
+    return {"logs": logs, "count": len(logs)}
+
+#Log stats
+@router.get("/logs/stats")
+def get_log_stats():
+    stats = get_number_of_logs_per_level() 
+    return {"stats": stats}
+
+#Log level
+@router.get("/logs/level/{level}") 
+def get_level_logs(level: str):
+    logs = get_logs_by_level(level) 
+    return {"logs": logs, "count": len(logs), "level": level.upper()}
 
 #Specific log
 @router.get("/logs/{log_id}")
@@ -13,25 +31,9 @@ def get_log(log_id: str):
         raise HTTPException(status_code=404, detail="Log not found")
     return log
 
-#All logs
-@router.get("/logs")
-def get_all_logs():
-    logs = get_all_items()
-    return {"logs": logs, "count": len(logs)}
-
-#Log level
-@router.get("/logs/level/{level}") 
-def get_level_logs(level: str):
-    logs = get_logs_by_level(level) 
-    return {"logs": logs, "count": len(logs), "level": level.upper()}
-    
-#Get logs based on user. Will you use this?
-@router.get("/users/{user_id}/logs")
-def get_user_logs(user_id: str):
-    logs = query_items_by_user(user_id)
-    return {"logs": logs, "count": len(logs)}
-
-
+@router.get("/")
+def logs_root():
+    return {"message": "Logs API is working!"}
 
 #Post logs to dynamoDB
 @router.post("/logs")
@@ -55,6 +57,11 @@ def create_log(message: str, level: str = "INFO", user_id: str = None):
         raise HTTPException(status_code=500, detail=f"Failed to create log: {str(e)}")
 
 
-@router.get("/")
-def logs_root():
-    return {"message": "Logs API is working!"}
+
+
+
+#Get logs based on user. Will you use this?
+@router.get("/users/{user_id}/logs")
+def get_user_logs(user_id: str):
+    logs = query_items_by_user(user_id)
+    return {"logs": logs, "count": len(logs)}

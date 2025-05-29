@@ -3,6 +3,7 @@ import os
 import uuid
 from app.backend.config.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, REGION
 from datetime import datetime, timezone
+from collections import defaultdict
 from botocore.exceptions import ClientError
 
 dynamodb = boto3.resource(
@@ -48,6 +49,25 @@ def get_logs_by_level(level: str):
     except ClientError as e:
         print(f"Error querying by level: {e}")
         return []
+
+def get_number_of_logs_per_level():
+    levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
+    counts = {}
+    
+    try:
+        for level in levels:
+            response = table.scan(
+                FilterExpression='#level = :level_value',
+                ExpressionAttributeNames={'#level': 'level'},
+                ExpressionAttributeValues={':level_value': level},
+                Select='COUNT'  
+            )
+            counts[level] = response.get('Count', 0)
+        
+        return counts
+    except ClientError as e:
+        print(f"Error: {e}")
+        return {}
 
 #Will you implement this?
 def get_item_by_id(item_id: str):
