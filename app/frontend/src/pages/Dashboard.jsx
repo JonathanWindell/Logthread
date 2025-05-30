@@ -4,6 +4,7 @@ import { useAuth } from "react-oidc-context";
 import { useNavigate } from "react-router-dom";
 import ApiTable from './ApiTable'
 import CriticalApiTable from './CriticalApiTable'
+import DistributionApiTable from './DistributionApiTable';
 
 
 function Dashboard() {
@@ -38,11 +39,7 @@ function Dashboard() {
       <div className="log-distribution">
         <h3>Log Distribution</h3>
           <div className="distribution-container">
-            <p>Debug</p>
-            <p>Info</p>
-            <p>Warning</p>
-            <p>Error</p>
-            <p>Critical</p>
+            <DistributionApiTable />
           </div>
       </div>
 
