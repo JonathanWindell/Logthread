@@ -14,70 +14,29 @@ import {
 
 /*Fetching data from API*/
 function DistributionApiTable() {
-    const [data, setData] = useState([]);
+    const [stats, setStats] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const urls = [
-        'http://localhost:8000/api/logs/level/DEBUG',
-        'http://localhost:8000/api/logs/level/INFO',
-        'http://localhost:8000/api/logs/level/WARNING',
-        'http://localhost:8000/api/logs/level/ERROR',
-        'http://localhost:8000/api/logs/level/CRITICAL'
-    ];
-
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchStats = async () => {
             try {
-                setLoading(true);
-                
-                const promises = urls.map(async (url) => {
-                    try {
-                        const response = await fetch(url); 
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        const jsonData = await response.json();
-                        return { url, data: jsonData, status: 'success' };
-                    } catch (error) {
-                        return { url, error: error.message, status: 'failed' };
-                    }
-                });
-
-                const results = await Promise.allSettled(promises);
-                
-                const successfulResults = [];
-                const errors = [];
-                
-                results.forEach((result) => {
-                    if (result.status === 'fulfilled') {
-                        if (result.value.status === 'success') {
-                            successfulResults.push(result.value);
-                            console.log(`${result.value.url}:`, result.value.data);
-                        } else {
-                            errors.push(result.value);
-                            console.error(`${result.value.url}:`, result.value.error);
-                        }
-                    }
-                });
-
-                setData(successfulResults); 
-                
-                if (errors.length > 0 && successfulResults.length === 0) {
-                    setError('Alla endpoints misslyckades');
-                } else if (errors.length > 0) {
-                    console.warn(`${errors.length} av ${urls.length} endpoints misslyckades`);
+                const response = await fetch('http://localhost:8000/api/logs/stats');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch log statistics');
                 }
-                
-            } catch (error) {
-                setError('Ett oväntat fel inträffade: ' + error.message);
+                const { stats } = await response.json(); 
+                setStats(stats);
+            } catch (err) {
+                setError(err.message);
+                console.error('Fetch error:', err);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchData();
-    }, []); 
+        fetchStats();
+    }, []);
 
     if (loading) {
         return <CircularProgress />;
@@ -87,24 +46,50 @@ function DistributionApiTable() {
         return <Typography color="error">{error}</Typography>;
     }
 
-    if (data.length === 0) {
-        return <Typography>No data available</Typography>;
+    if (Object.keys(stats).length === 0) {
+        return <Typography>No log statistics available</Typography>;
     }
 
-    // Render based on result
+    // Define order for logging
+    const logLevelOrder = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'];
+
     return (
-        <div>
-            {data.map((result, index) => (
-                <div key={index}>
-                    <Typography variant="h6">
-                        {result.url.split('/').pop()} Logs
-                    </Typography>
-                    {/* Här kan du rendera en tabell för varje log-level */} 
-                    <pre>{JSON.stringify(result.data, null, 2)}</pre>
-                </div>
-            ))}
-        </div>
+        <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="log statistics table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Log Level</TableCell>
+                        <TableCell align="right">Count</TableCell>
+                        <TableCell align="right">Percentage</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {logLevelOrder.map(level => {
+                        const count = stats[level] || 0;
+                        const total = Object.values(stats).reduce((sum, val) => sum + val, 0);
+                        const percentage = total > 0 ? ((count / total) * 100).toFixed(1) + '%' : '0%';
+                        
+                        return (
+                            <TableRow key={level}>
+                                <TableCell component="th" scope="row">
+                                    {level}
+                                </TableCell>
+                                <TableCell align="right">{count}</TableCell>
+                                <TableCell align="right">{percentage}</TableCell>
+                            </TableRow>
+                        );
+                    })}
+                    <TableRow>
+                        <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>Total</TableCell>
+                        <TableCell align="right" sx={{ fontWeight: 'bold' }}>
+                            {Object.values(stats).reduce((sum, val) => sum + val, 0)}
+                        </TableCell>
+                        <TableCell align="right" sx={{ fontWeight: 'bold' }}>100%</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 }
 
-export default DistributionApiTable
+export default DistributionApiTable;
