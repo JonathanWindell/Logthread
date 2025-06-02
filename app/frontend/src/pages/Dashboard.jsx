@@ -22,15 +22,23 @@ function Dashboard() {
     <div className="dashboard-container">
     <div className="dashboard-header">
       <h1>Dashboard</h1>
+      <div className="log-dashboard">
+        <p>Log Dashboard</p>
+      </div>
     </div>
     
     <div className="welcome-message">
-      <h2>Welcome, {auth.user?.profile.email}!</h2>
-      <p>Log Dashboard</p>
+      <p>Logged in as: {auth.user?.profile.email}</p>
     </div>
 
-    <div className="Exporting">
-      <Exporting />
+    {/* Ny export-sektion - inte del av headern */}
+    <div className="export-section">
+      <button className="export-button" onClick={() => exportToFile('csv')}>
+        Export to CSV
+      </button>
+      <button className="export-button" onClick={() => exportToFile('json')}>
+        Export to JSON
+      </button>
     </div>
 
     <div className="critical-logs critical-table">
