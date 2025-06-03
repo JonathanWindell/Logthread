@@ -19,14 +19,15 @@ The initial motivation comes from personal experience – managing logs locally 
 | 7  | Monitoring            | Infrastructure/error monitoring via AWS CloudWatch. |
 
 ## Technology Stack
-### Layer    Tool/Service
-Backend:   Python + AWS Lambda + API Gateway
-Storage:   DynamoDB (for structured logs), S3 (for archives)
-Frontend:  React + Vite (lightweight and reactive UI)
-Authentication:   AWS Cognito
-CI/CD:  GitHub Actions + Serverless Framework
-Monitoring:  SNS
-Logger Client:  Python with Boto3
+| Layer           | Tool/Service                          |
+|-----------------|---------------------------------------|
+| Backend         | Python + AWS Lambda + API Gateway     |
+| Storage         | DynamoDB (structured logs), S3 (archives) |
+| Frontend        | React + Vite (lightweight reactive UI) |
+| Authentication  | AWS Cognito                           |
+| CI/CD           | GitHub Actions + Serverless Framework |
+| Monitoring      | AWS CloudWatch + SNS                  |
+| Logger Client   | Python with Boto3                     |
 
 # 2: Planning & Design
 ## Architecture 
