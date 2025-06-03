@@ -92,8 +92,6 @@ function ApiTable() {
       </Table>
     </TableContainer>
   );
-  
-
 }
   
 export default ApiTable;
