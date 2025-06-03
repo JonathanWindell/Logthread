@@ -2,6 +2,7 @@ from app.backend.logging.LoggerEnum import LoggerEnum
 import datetime
 import uuid
 
+#Format for log messages
 class MessageFormatter:
 
     @staticmethod
