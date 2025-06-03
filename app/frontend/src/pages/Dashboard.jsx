@@ -8,14 +8,13 @@ import DistributionApiTable from './DistributionApiTable';
 import Exporting from './Exporting';
 import S3ArchivedTable from './S3ArchivedTable';
 
-
 function Dashboard() {
   const auth = useAuth();
   const navigate = useNavigate();
   const [logsData, setLogsData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  /*Getting data for Csv and Json extract*/
+  // Fetch logs data on component mount for CSV/JSON export functionality
   useEffect(() => {
     const fetchLogs = async () => {
       try {
@@ -33,7 +32,7 @@ function Dashboard() {
     fetchLogs();
   }, []);
   
-  /*Sign out function*/
+  // Handle user logout - clear auth and redirect to home
   const signOut = () => {
     auth.removeUser();
     navigate('/');
@@ -48,35 +47,42 @@ function Dashboard() {
       </div>
     </div>
     
+    {/* Display current user's email */}
     <div className="welcome-message">
       <p>Currently logged in as:<br>
       </br>{auth.user?.profile.email}</p>
     </div>
 
+    {/* Export functionality for logs data */}
     <div className="export-section">
       <Exporting data={logsData} />
     </div>
 
+    {/* Critical logs table */}
     <div className="critical-logs critical-table">
       <h3>Critical Logs</h3>
       <CriticalApiTable />
     </div>
     
+    {/* Log level distribution statistics */}
     <div className="log-distribution stats-table">
       <h3>Log Distribution</h3>
       <DistributionApiTable />
     </div>
 
+    {/* Main log feed table */}
     <div className="api-section log-table">
       <h3>Log Feed</h3>
       <ApiTable />
     </div>
 
+    {/* S3 archived logs table */}
     <div className="S3-logs S3-table ">
       <h3>Archived Logs</h3>
       <S3ArchivedTable />
     </div>
 
+    {/* Logout button */}
     <div className="logout-section">
       <button className="btn-logout" onClick={signOut}>Logga ut</button>
     </div>

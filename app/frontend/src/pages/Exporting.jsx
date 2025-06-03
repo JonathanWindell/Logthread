@@ -1,7 +1,9 @@
 import React from 'react';
 
+// Component for exporting log data as CSV or JSON files
 const Exporting = ({ data }) => {
   const exportToFile = async (format) => {
+    // Check if data exists before export
     if (!data || data.length === 0) {
       alert('No data to export');
       return;
@@ -10,7 +12,9 @@ const Exporting = ({ data }) => {
     try {
       let content, mimeType, extension;
       
+      // Format data based on selected export type
       if (format === 'csv') {
+        // Create CSV with headers and data rows
         content = [
           ["Log ID", "Level", "Message", "Timestamp"],
           ...data.map(log => [log.log_id, log.level, log.message, log.timestamp])
@@ -18,12 +22,14 @@ const Exporting = ({ data }) => {
         mimeType = 'text/csv';
         extension = 'csv';
       } else { 
+        // JSON format with pretty printing
         content = JSON.stringify(data, null, 2);
         mimeType = 'application/json';
         extension = 'json';
       }
 
       try {
+        // Use modern File System Access API if available
         const fileHandle = await window.showSaveFilePicker({
           suggestedName: `logs_export.${extension}`,
           types: [{
@@ -36,6 +42,7 @@ const Exporting = ({ data }) => {
         await writable.write(content);
         await writable.close();
       } catch (err) {
+        // Fallback to download link if File System API not supported or cancelled
         if (err.name !== 'AbortError') {
           const blob = new Blob([content], { type: mimeType });
           const url = URL.createObjectURL(blob);

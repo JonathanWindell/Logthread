@@ -11,6 +11,7 @@ import {
   Typography
 } from '@mui/material';
 
+/*Function to fetch data from API*/
 function S3ArchivedTable() {
   const [archivedLogCount, setArchivedLogCount] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,6 +37,7 @@ function S3ArchivedTable() {
     fetchStats();
   }, []);
 
+  // Handle loading and error states
   if (loading) {
     return <CircularProgress />;
   }

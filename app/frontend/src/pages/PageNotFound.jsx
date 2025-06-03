@@ -1,5 +1,6 @@
 import React from "react";
 
+/*Redict to 404 page*/
 const PageNotFound = () => {
     return (
         <div>

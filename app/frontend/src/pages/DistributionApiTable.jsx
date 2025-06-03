@@ -12,12 +12,13 @@ import {
   Typography
 } from '@mui/material';
 
-/*Fetching data from API*/
+// Component for displaying log level distribution statistics
 function DistributionApiTable() {
     const [stats, setStats] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Fetch log statistics from API on component mount
     useEffect(() => {
         const fetchStats = async () => {
             try {
@@ -38,6 +39,7 @@ function DistributionApiTable() {
         fetchStats();
     }, []);
 
+    // Handle loading and error states
     if (loading) {
         return <CircularProgress />;
     }
@@ -50,7 +52,7 @@ function DistributionApiTable() {
         return <Typography>No log statistics available</Typography>;
     }
 
-    // Define order for logging
+    // Display log levels in severity order
     const logLevelOrder = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'];
 
     return (
@@ -67,6 +69,7 @@ function DistributionApiTable() {
                     {logLevelOrder.map(level => {
                         const count = stats[level] || 0;
                         const total = Object.values(stats).reduce((sum, val) => sum + val, 0);
+                        // Calculate percentage for each log level
                         const percentage = total > 0 ? ((count / total) * 100).toFixed(1) + '%' : '0%';
                         
                         return (
@@ -79,6 +82,7 @@ function DistributionApiTable() {
                             </TableRow>
                         );
                     })}
+                    {/* Total row at bottom */}
                     <TableRow>
                         <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>Total</TableCell>
                         <TableCell align="right" sx={{ fontWeight: 'bold' }}>
