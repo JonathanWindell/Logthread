@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuth } from "react-oidc-context";
 import { Routes, Route } from "react-router-dom";
 import Dashboard from './Dashboard';
+import PageNotFound from './PageNotFound';
 
 function App() {
   const auth = useAuth();
@@ -39,6 +40,8 @@ function App() {
         )
       } />
       <Route path="/dashboard" element={<Dashboard />} />
+
+       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 }
