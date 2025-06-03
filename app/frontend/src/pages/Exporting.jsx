@@ -54,10 +54,10 @@ const Exporting = ({ data }) => {
   return (
     <div className="export-options">
       <button onClick={() => exportToFile('csv')} className="export-button">
-        Export to CSV
+        Export as CSV
       </button>
       <button onClick={() => exportToFile('json')} className="export-button">
-        Export to JSON
+        Export as JSON
       </button>
     </div>
   );

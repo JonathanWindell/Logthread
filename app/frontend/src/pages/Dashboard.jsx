@@ -6,6 +6,7 @@ import ApiTable from './ApiTable'
 import CriticalApiTable from './CriticalApiTable'
 import DistributionApiTable from './DistributionApiTable';
 import Exporting from './Exporting';
+import S3ArchivedTable from './S3ArchivedTable';
 
 
 function Dashboard() {
@@ -48,7 +49,7 @@ function Dashboard() {
     </div>
     
     <div className="welcome-message">
-      <p>Logged in as: <br>
+      <p>Currently logged in as:<br>
       </br>{auth.user?.profile.email}</p>
     </div>
 
@@ -69,6 +70,11 @@ function Dashboard() {
     <div className="api-section log-table">
       <h3>Log Feed</h3>
       <ApiTable />
+    </div>
+
+    <div className="S3-logs S3-table ">
+      <h3>Archived Logs</h3>
+      <S3ArchivedTable />
     </div>
 
     <div className="logout-section">
