@@ -6,8 +6,16 @@ from datetime import datetime, timezone
 from collections import defaultdict
 from botocore.exceptions import ClientError
 
+#DynamoDb Logs
 dynamodb = boto3.resource(
     'dynamodb',
+    region_name=REGION,
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+)
+#S3 Logs
+s3 = boto3.client(
+    's3',
     region_name=REGION,
     aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY
@@ -15,6 +23,7 @@ dynamodb = boto3.resource(
 
 table = dynamodb.Table('Logs')
 
+#Functions to extract logs
 def send_log(item: dict):
     table.put_item(Item=item)
 
@@ -68,6 +77,16 @@ def get_number_of_logs_per_level():
     except ClientError as e:
         print(f"Error: {e}")
         return {}
+    
+#S3 endpoint
+def get_archived_log_count_s3():
+    try:
+        response = s3.list_objects_v2(Bucket="mylogthreadbucket", Prefix="archived/")
+        objects = response.get("Contents", [])
+        return len(objects)
+    except Exception as e:
+        print(f"Error counting archived logs: {e}")
+        return 0
 
 #Will you implement this?
 def get_item_by_id(item_id: str):

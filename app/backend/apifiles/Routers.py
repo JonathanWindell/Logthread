@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException
+from app.backend.apifiles.LoggerAPI import get_archived_log_count_s3
 from app.backend.apifiles.LoggerAPI import get_item_by_id, get_all_items, query_items_by_user, send_log, get_logs_by_level, get_number_of_logs_per_level
 from datetime import datetime, timezone
 import uuid
@@ -31,6 +32,7 @@ def get_log(log_id: str):
         raise HTTPException(status_code=404, detail="Log not found")
     return log
 
+#Test message
 @router.get("/")
 def logs_root():
     return {"message": "Logs API is working!"}
@@ -56,8 +58,11 @@ def create_log(message: str, level: str = "INFO", user_id: str = None):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to create log: {str(e)}")
 
-
-
+#S3 Router
+@router.get("/archived/count")
+def get_archived_log_count():
+    count = get_archived_log_count_s3()
+    return {"archived_log_count": count}
 
 
 #Get logs based on user. Will you use this?
