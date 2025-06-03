@@ -34,7 +34,8 @@ The flows represent how the website/ app will transfer data through the layers. 
 
 // Insert pictures
 ![image](https://github.com/user-attachments/assets/0f1fd5d9-bdce-4628-b235-e2e2b3d82c6b)
-![image](https://github.com/user-attachments/assets/608e53ff-aef8-4ce3-9d74-e4b0933f6d7f)
+![image](https://github.com/user-attachments/assets/d8bb23e9-3b43-4ebd-aeb9-667265808a78)
+
 
 
 ## Architecture explained:
