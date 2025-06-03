@@ -19,6 +19,7 @@ function CriticalApiTable() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Fetch logs data from API on component mount
     useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,6 +39,7 @@ function CriticalApiTable() {
     fetchData();
   }, []);
 
+  // Format ISO timestamp to Swedish locale format
   const formatDate = (isoString) => {
     return new Date(isoString).toLocaleString('sv-SE', {
       year: 'numeric',
@@ -49,6 +51,7 @@ function CriticalApiTable() {
       });
     };
   
+    // Handle loading and error states
     if (loading) {
       return <CircularProgress />;
     }

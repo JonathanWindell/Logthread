@@ -7,6 +7,7 @@ import PageNotFound from './PageNotFound';
 function App() {
   const auth = useAuth();
 
+  // Handle AWS Cognito logout with redirect to homepage
   const signOutRedirect = () => {
     const clientId = "46qchek76kro8ut5pfcld5nf72";
     const logoutUri = "http://localhost:5173";
@@ -14,16 +15,19 @@ function App() {
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
 
+  // Show loading state while auth is initializing
   if (auth.isLoading) {
     return <div>Loading...</div>;
   }
 
+  // Show error state if auth fails
   if (auth.error) {
     return <div>Encountering error... {auth.error.message}</div>;
   }
 
   return (
     <Routes>
+      {/* Home route - shows login page or welcome message based on auth status */}
       <Route path="/" element={
         auth.isAuthenticated ? (
           <div>
@@ -39,9 +43,12 @@ function App() {
           </div>
         )
       } />
+
+      {/* Dashboard route */}
       <Route path="/dashboard" element={<Dashboard />} />
 
-       <Route path="*" element={<PageNotFound />} />
+      {/* Catch-all route for 404 pages */}
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 }

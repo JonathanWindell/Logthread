@@ -12,13 +12,14 @@ import {
   Typography
 } from '@mui/material';
 
-/*Fetching data from API*/
+// Component for displaying logs in a Material-UI table
 function ApiTable() {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Fetch logs data from API on component mount
     useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,6 +39,7 @@ function ApiTable() {
     fetchData();
   }, []);
 
+   // Format ISO timestamp to Swedish locale format
   const formatDate = (isoString) => {
   return new Date(isoString).toLocaleString('sv-SE', {
     year: 'numeric',
@@ -49,6 +51,7 @@ function ApiTable() {
     });
   };
 
+  // Handle loading and error states
   if (loading) {
     return <CircularProgress />;
   }
@@ -80,7 +83,7 @@ function ApiTable() {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                
+                {/* Empty ID cell - no data displayed */}
               </TableCell>
               <TableCell align="right">{row.log_id}</TableCell>
                <TableCell align="right">{formatDate(row.timestamp)}</TableCell>
