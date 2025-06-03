@@ -26,12 +26,12 @@ def test_logging():
     logger = Logger(level=LoggerEnum.DEBUG)
     
     #Log to dynamoDB
-    logger.log("Testmeddelande: DEBUG-nivå", LoggerEnum.DEBUG)
+    #logger.log("Testmeddelande: DEBUG-nivå", LoggerEnum.DEBUG)
     
     # Log to dynamoDB and send mail
     #logger.log("KRITISKT FEL: Systemkrasch", LoggerEnum.CRITICAL)
 
-    send_critical_notification("Manuellt test av SNS")
+    #send_critical_notification("Manuellt test av SNS")
 
 if __name__ == "__main__":
     import uvicorn
