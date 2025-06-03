@@ -11,6 +11,26 @@ import Exporting from './Exporting';
 function Dashboard() {
   const auth = useAuth();
   const navigate = useNavigate();
+  const [logsData, setLogsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  /*Getting data for Csv and Json extract*/
+  useEffect(() => {
+    const fetchLogs = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/logs');
+        if (!response.ok) throw new Error('Failed to fetch logs');
+        const data = await response.json();
+        setLogsData(data.logs || []);
+      } catch (error) {
+        console.error('Error fetching logs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLogs();
+  }, []);
   
   /*Sign out function*/
   const signOut = () => {
@@ -28,17 +48,12 @@ function Dashboard() {
     </div>
     
     <div className="welcome-message">
-      <p>Logged in as: {auth.user?.profile.email}</p>
+      <p>Logged in as: <br>
+      </br>{auth.user?.profile.email}</p>
     </div>
 
-    {/* Ny export-sektion - inte del av headern */}
     <div className="export-section">
-      <button className="export-button" onClick={() => exportToFile('csv')}>
-        Export to CSV
-      </button>
-      <button className="export-button" onClick={() => exportToFile('json')}>
-        Export to JSON
-      </button>
+      <Exporting data={logsData} />
     </div>
 
     <div className="critical-logs critical-table">

@@ -8,7 +8,6 @@ const Exporting = ({ data }) => {
     }
 
     try {
-      // Skapa filinnehåll
       let content, mimeType, extension;
       
       if (format === 'csv') {
@@ -18,13 +17,12 @@ const Exporting = ({ data }) => {
         ].map(e => e.join(",")).join("\n");
         mimeType = 'text/csv';
         extension = 'csv';
-      } else { // JSON
+      } else { 
         content = JSON.stringify(data, null, 2);
         mimeType = 'application/json';
         extension = 'json';
       }
 
-      // Modern filväljare API
       try {
         const fileHandle = await window.showSaveFilePicker({
           suggestedName: `logs_export.${extension}`,
@@ -38,7 +36,6 @@ const Exporting = ({ data }) => {
         await writable.write(content);
         await writable.close();
       } catch (err) {
-        // Fallback för äldre webbläsare
         if (err.name !== 'AbortError') {
           const blob = new Blob([content], { type: mimeType });
           const url = URL.createObjectURL(blob);
