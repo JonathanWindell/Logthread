@@ -6,14 +6,14 @@ from datetime import datetime, timezone
 from collections import defaultdict
 from botocore.exceptions import ClientError
 
-#DynamoDb Logs
+# Initialize AWS services
 dynamodb = boto3.resource(
     'dynamodb',
     region_name=REGION,
     aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY
 )
-#S3 Logs
+
 s3 = boto3.client(
     's3',
     region_name=REGION,
@@ -23,7 +23,7 @@ s3 = boto3.client(
 
 table = dynamodb.Table('Logs')
 
-#Functions to extract logs
+# Basic CRUD operations
 def send_log(item: dict):
     table.put_item(Item=item)
 
@@ -40,6 +40,7 @@ def get_log(log_id):
         return None
 
 def get_all_items():
+    # Note: Expensive operation for large tables
     try:
         response = table.scan()
         return response.get('Items', [])
@@ -48,10 +49,11 @@ def get_all_items():
         return []
 
 def get_logs_by_level(level: str):
+    # Filter logs by severity level using scan
     try:
         response = table.scan(
             FilterExpression='#level = :level_value',
-            ExpressionAttributeNames={'#level': 'level'},  
+            ExpressionAttributeNames={'#level': 'level'},
             ExpressionAttributeValues={':level_value': level.upper()}
         )
         return response.get('Items', [])
@@ -60,6 +62,7 @@ def get_logs_by_level(level: str):
         return []
 
 def get_number_of_logs_per_level():
+    # Count logs at each level without retrieving data
     levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
     counts = {}
     
@@ -69,7 +72,7 @@ def get_number_of_logs_per_level():
                 FilterExpression='#level = :level_value',
                 ExpressionAttributeNames={'#level': 'level'},
                 ExpressionAttributeValues={':level_value': level},
-                Select='COUNT'  
+                Select='COUNT'
             )
             counts[level] = response.get('Count', 0)
         
@@ -78,8 +81,9 @@ def get_number_of_logs_per_level():
         print(f"Error: {e}")
         return {}
     
-#S3 endpoint
+# S3 operations
 def get_archived_log_count_s3():
+    # Count archived logs in S3 bucket
     try:
         response = s3.list_objects_v2(Bucket="mylogthreadbucket", Prefix="archived/")
         objects = response.get("Contents", [])
@@ -88,12 +92,12 @@ def get_archived_log_count_s3():
         print(f"Error counting archived logs: {e}")
         return 0
 
-#Will you implement this?
+# Utility functions
 def get_item_by_id(item_id: str):
     return get_log(item_id)
 
-#Will you implement this?
 def query_items_by_user(user_id: str):
+    # Find logs by user ID, checking attribute exists first
     try:
         response = table.scan(
             FilterExpression='attribute_exists(user_id) AND user_id = :uid',
