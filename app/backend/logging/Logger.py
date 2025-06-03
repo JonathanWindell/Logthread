@@ -17,7 +17,7 @@ class Logger:
 
         item = self.formatter.format(level, message)
 
-        if level == LoggerEnum.CRITICAL: #Let user decide instead. Through frontend
+        if level == LoggerEnum.CRITICAL: #Let user decide instead. Through frontend?
             send_critical_notification(item["message"])
 
         send_log(item)
