@@ -28,7 +28,7 @@ def test_logging():
     #Log to dynamoDB
     #logger.log("Testmeddelande: DEBUG-nivå", LoggerEnum.DEBUG)
     
-    # Log to dynamoDB and send mail
+    #Log to dynamoDB and send mail
     #logger.log("KRITISKT FEL: Systemkrasch", LoggerEnum.CRITICAL)
 
     #send_critical_notification("Manuellt test av SNS")
