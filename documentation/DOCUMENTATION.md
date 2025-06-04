@@ -19,26 +19,7 @@ http://localhost:8000/api/archived/count (If S3 buckets hold archived logs)
 
 #### API Endpoint: http://localhost:8000/api/logs
 
-logs": [
-    {
-      "log_id": "8ef96028-66a9-455d-9e30-86a99fff1053",
-      "message": "Testmeddelande: INFO-nivå",
-      "level": "INFO",
-      "timestamp": "2025-05-22T04:30:31.217900+00:00"
-    },
-    {
-      "log_id": "7e639611-342e-49f5-91bb-18bf0645e315",
-      "message": "Testmeddelande: INFO-nivå",
-      "level": "INFO",
-      "timestamp": "2025-05-22T03:52:37.039962+00:00"
-    },
-    {
-      "log_id": "bce8818d-6fc5-4a28-bc46-c52a4b13e434",
-      "message": "Testmeddelande: WARNING-nivå",
-      "level": "WARNING",
-      "timestamp": "2025-06-03T14:37:43.972549+00:00"
-    },
-    Continuation...
+![JSON Response[(./pictures/APIEndpointLogs.png)
     
 ## .Env variables
 ### Security Note
