@@ -39,17 +39,17 @@ The flows represent how the website/ app will transfer data through the layers. 
 ![Architecture](./pictures/Architecture.png)
 
 ## Architecture explained:
-### Log gathering
+#### Log gathering
 1: Client sends logs to the REST endpoint through API Gateway.
 2: API Gateway passes on to Lambda (LogHandler) that:
 Validates logging data.
 Adds metadata such as timestamp & user.
 Saves in DynamoDB or S3 depending on structure and user choice. 
 
-### Notifications
+#### Notifications
 3: SNS is integrated which let's user decide which level of logs to activate SNS at. Default is CRITICAL
 
-### Authentication & Frontend
+#### Authentication & Frontend
 4: Users login through Cognito Hosted UI.
 5: Frontend calls GET / logs through API Gateway.
 6: API endpoints retrieves data that is of relevance from DynamoDB and returns data to frontend.
@@ -90,6 +90,47 @@ Support custom log parsing rules in DynamoDB.
 Explore OpenTelemetry integration for distributed tracing.
 
 # 4: Testing & QA
-When all features 
+Rigorous testing was performed at each development phase to ensure reliability and functionality. Below is a breakdown of the validation process:
+
+#### 1. Unit & Integration Testing
+- DynamoDB Connection:
+Validated log ingestion using a test Python logger:
+
+logger = Logger(level=LoggerEnum.DEBUG)
+logger.log("Testmessage: DEBUG-level", LoggerEnum.DEBUG)  # Verified in DynamoDB table
+
+Checked for:
+✓ Correct log level storage
+✓ Timestamp accuracy
+✓ Error handling for failed writes
+
+- SNS Alerting:
+Triggered ERROR-level logs to confirm email/SNS notifications:
+
+logger.log("CRITICAL ERROR: Systemkrasch", LoggerEnum.CRITICAL)
+send_critical_notification("Manual test SNS")
+
+#### 2. API & Frontend Validation
+- FastAPI Backend:
+
+Tested all endpoints (e.g., /logs, /auth) via Postman:
+![All Logs EndPoint](./pictures/APIEndpintLogs.png)
+
+- React Frontend:
+
+Verified log filtering/search functionality.
+![Dashboard top](./pictures/DashboardTop.png)
+![Dashboard lower](./pictures/DashboardLower.png)
+
+Tested Cognito login flow (Hosted UI → JWT token → API access).
+
+#### 3. Negative Testing
+Simulated failures:
+✓ Invalid API keys → 403 responses
+✓ DynamoDB throttling → Retry mechanism
+✓ Malformed logs → Graceful error handling
+
+![Error page](./pictures/404ErrorPage.png)
+  
 
 
