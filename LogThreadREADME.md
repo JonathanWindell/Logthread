@@ -34,10 +34,10 @@ The initial motivation comes from personal experience – managing logs locally 
 
 ## Logflow & User login
 The flows represent how the website/ app will transfer data through the layers. I’ve chosen AWS stack because it’s easier to get going. 
+![Log & User flow](./pictures/Log&UserFlow.png)
 
+## Architecture
 ![Architecture](./pictures/Architecture.png)
-
-
 
 ## Architecture explained:
 ### Log gathering
