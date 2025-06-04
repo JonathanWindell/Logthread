@@ -30,7 +30,6 @@ The initial motivation comes from personal experience – managing logs locally 
 | Logger Client   | Python with Boto3                     |
 
 # 2: Planning & Design
-## Architecture 
 
 ## Logflow & User login
 The flows represent how the website/ app will transfer data through the layers. I’ve chosen AWS stack because it’s easier to get going. 
@@ -54,5 +53,43 @@ Saves in DynamoDB or S3 depending on structure and user choice.
 4: Users login through Cognito Hosted UI.
 5: Frontend calls GET / logs through API Gateway.
 6: API endpoints retrieves data that is of relevance from DynamoDB and returns data to frontend.
+
+# 3: Implementation
+The logger is now feature-complete for core functionality, providing a robust tool for developers to integrate with their projects. While minor optimizations remain, the implementation covers all critical aspects of log collection, storage, alerting, and user interaction.
+
+Key Achievements:
+### AWS Stack Integration:
+Leveraged DynamoDB (structured logs) and S3 (archiving) for flexible storage.
+Implemented Cognito for authentication (optional but valuable for learning AWS services).
+Used Lambda + API Gateway for serverless log processing.
+
+### Developer-Centric Design:
+Local-first approach: Designed to run seamlessly on local machines with easy customization.
+Modular code: Components like the Python logger client (boto3) and React frontend can be swapped or extended.
+
+### Features Delivered:
+Real-time log filtering/search via the React+Vite UI.
+Email/SNS alerts for ERROR-level logs.
+Environment-aware configuration (.env support).
+
+### Pending Items:
+### CI/CD Pipeline:
+Planned: Automate deployments using GitHub Actions + Serverless Framework.
+
+### Monitoring:
+Future: Integrate CloudWatch for metrics/dashboards (stretch goal).
+
+### Lessons Learned:
+AWS Best Practices: Gained hands-on experience with serverless architectures and IAM roles.
+Trade-offs: Cognito added complexity but deepened understanding of auth flows.
+Debugging: Instrumented Lambda logs extensively for troubleshooting.
+
+### Future Enhancements:
+Add multi-language SDKs (Node.js, Java) for broader adoption.
+Support custom log parsing rules in DynamoDB.
+Explore OpenTelemetry integration for distributed tracing.
+
+# 4: Testing & QA
+
 
 
