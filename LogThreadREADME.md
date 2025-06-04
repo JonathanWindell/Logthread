@@ -99,10 +99,12 @@ Validated log ingestion using a test Python logger:
 logger = Logger(level=LoggerEnum.DEBUG)
 logger.log("Testmessage: DEBUG-level", LoggerEnum.DEBUG)  # Verified in DynamoDB table
 
-Checked for:
-✓ Correct log level storage
-✓ Timestamp accuracy
-✓ Error handling for failed writes
+| Test Category       | Verification Points                |
+|---------------------|------------------------------------|
+| Log Storage         | ✓ Correct log level storage        |
+|                     | ✓ Timestamp accuracy               |
+|                     | ✓ Error handling for write failures|
+
 
 - SNS Alerting:
 Triggered ERROR-level logs to confirm email/SNS notifications:
@@ -125,10 +127,11 @@ Verified log filtering/search functionality.
 Tested Cognito login flow (Hosted UI → JWT token → API access).
 
 #### 3. Negative Testing
-Simulated failures:
-✓ Invalid API keys → 403 responses
-✓ DynamoDB throttling → Retry mechanism
-✓ Malformed logs → Graceful error handling
+| Failure Simulation  | Handling Mechanism                 |
+|---------------------|------------------------------------|
+| Invalid API Keys    | → 403 responses                    |
+| DynamoDB Throttling | → Retry mechanism                  |
+| Malformed Logs      | → Graceful error handling          |
 
 ![Error page](./pictures/404ErrorPage.png)
   
