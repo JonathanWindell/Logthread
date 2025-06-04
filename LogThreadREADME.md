@@ -8,7 +8,7 @@ LogThread is a cloud-based logging service designed to streamline the way develo
 The initial motivation comes from personal experience – managing logs locally becomes inefficient as projects grow. I first got the idea when learning Java and creating a logger that became the base for this project. You can find the MVP on my github. The goal is to build a serverless, scalable logging platform to simplify log access, monitoring, and alerting and really learning more about the cloud as I think it will give me a good foundation and headstart when entering the work field. The first version will be tailored for personal use, with future plans to open it up to fellow developers for feedback and enhancements. 
 
 ## Core Features
-| #  | Feature               | Description |
+|    | Feature               | Description |
 |----|-----------------------|-------------|
 | 1  | Log Collection        | Send logs to a public API via a language-specific logger (starting with a Java-based MVP logger). |
 | 2  | Cloud Storage         | Save logs to either DynamoDB (structured search/filtering) or Amazon S3 (low-cost archiving). User-selectable. |
@@ -36,8 +36,7 @@ The initial motivation comes from personal experience – managing logs locally 
 The flows represent how the website/ app will transfer data through the layers. I’ve chosen AWS stack because it’s easier to get going. 
 
 // Insert pictures
-![image](https://github.com/user-attachments/assets/0f1fd5d9-bdce-4628-b235-e2e2b3d82c6b)
-![image](https://github.com/user-attachments/assets/d8bb23e9-3b43-4ebd-aeb9-667265808a78)
+![Log & User flow](./pictures/architecture.png)
 
 
 
