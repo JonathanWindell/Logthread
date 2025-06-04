@@ -1,5 +1,8 @@
 # Project Overview – LogThread
 
+## Documentation
+
+
 # 1: Vision & Scope
 ## Project Description
 LogThread is a cloud-based logging service designed to streamline the way developers handle, view, and respond to application logs. Instead of combing through unstructured logs in the command line, Loggify enables centralized log management with clear filtering, real-time alerts, and a clean user interface.
@@ -116,7 +119,7 @@ send_critical_notification("Manual test SNS")
 - FastAPI Backend:
 
 Tested all endpoints (e.g., /logs, /auth) via Postman:
-![All Logs EndPoint](./pictures/APIEndpintLogs.png)
+![All Logs EndPoint](./pictures/APIEndpointLogs.png)
 
 - React Frontend:
 
@@ -134,6 +137,13 @@ Tested Cognito login flow (Hosted UI → JWT token → API access).
 | Malformed Logs      | → Graceful error handling          |
 
 ![Error page](./pictures/404ErrorPage.png)
+
+# 5: Documentation
+You can find necessesary documentation at the top of this document!
+
+# 6: Deployment
+My plan is to deploy this on my home server for myself but people will be able to see how it works. To use it personally you will have to install your own
+version on your own system as this is a project that needs to be integrated in other projects to actually make a difference. 
   
 
 
