@@ -19,7 +19,7 @@ http://localhost:8000/api/archived/count (If S3 buckets hold archived logs)
 
 #### API Endpoint: http://localhost:8000/api/logs
 
-![JSON Response[(./pictures/APIEndpointLogs.png)
+![JSON Response](./pictures/APIEndpointLogs.png)
     
 ## .Env variables
 ### Security Note
