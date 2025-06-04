@@ -57,39 +57,39 @@ Saves in DynamoDB or S3 depending on structure and user choice.
 # 3: Implementation
 The logger is now feature-complete for core functionality, providing a robust tool for developers to integrate with their projects. While minor optimizations remain, the implementation covers all critical aspects of log collection, storage, alerting, and user interaction.
 
-Key Achievements:
-### AWS Stack Integration:
+### Key Achievements:
+#### AWS Stack Integration:
 Leveraged DynamoDB (structured logs) and S3 (archiving) for flexible storage.
 Implemented Cognito for authentication (optional but valuable for learning AWS services).
 Used Lambda + API Gateway for serverless log processing.
 
-### Developer-Centric Design:
+#### Developer-Centric Design:
 Local-first approach: Designed to run seamlessly on local machines with easy customization.
 Modular code: Components like the Python logger client (boto3) and React frontend can be swapped or extended.
 
-### Features Delivered:
+#### Features Delivered:
 Real-time log filtering/search via the React+Vite UI.
 Email/SNS alerts for ERROR-level logs.
 Environment-aware configuration (.env support).
 
 ### Pending Items:
-### CI/CD Pipeline:
+#### CI/CD Pipeline:
 Planned: Automate deployments using GitHub Actions + Serverless Framework.
 
-### Monitoring:
+#### Monitoring:
 Future: Integrate CloudWatch for metrics/dashboards (stretch goal).
 
-### Lessons Learned:
+#### Lessons Learned:
 AWS Best Practices: Gained hands-on experience with serverless architectures and IAM roles.
 Trade-offs: Cognito added complexity but deepened understanding of auth flows.
 Debugging: Instrumented Lambda logs extensively for troubleshooting.
 
-### Future Enhancements:
+#### Future Enhancements:
 Add multi-language SDKs (Node.js, Java) for broader adoption.
 Support custom log parsing rules in DynamoDB.
 Explore OpenTelemetry integration for distributed tracing.
 
 # 4: Testing & QA
-
+When all features 
 
 
