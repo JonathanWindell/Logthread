@@ -34,7 +34,9 @@ pip install -r requirements.txt
 
 #### AWS config
 AWS_REGION=your-region
+
 AWS_ACCESS_KEY_ID=your-access-key
+
 AWS_SECRET_ACCESS_KEY=your-secret-key
 
 #### SNS config
@@ -42,9 +44,13 @@ SNS_TOPIC_ARN=your-sns-topic-arn
 
 #### Cognito config
 COGNITO_REGION=your-region
+
 CLIENT_ID=your-client-id
+
 USER_POOL_ID=your-user-pool-id
+
 SECRET_KEY=your-secret-key
+
 DEBUG=true
 
 ### Important: Never commit .env or access keys to GitHub. It should be ignored via .gitignore.
@@ -54,7 +60,9 @@ DEBUG=true
 uvicorn main:app --reload
 
 The backend will now run at:
+
 http://localhost:8000
+
 Swagger Docs: http://localhost:8000/docs
 
 
@@ -73,6 +81,7 @@ npm install
 npm run dev
 
 The frontend will now run at:
+
 http://localhost:5173
 
 ### Test Logging
