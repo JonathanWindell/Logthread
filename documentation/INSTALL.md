@@ -96,8 +96,11 @@ Check if SNS gets triggered for CRITICAL logs (if configured).
 ### Additional Notes
 Your .gitignore should include:
 venv/, 
+
 .env, 
+
 __pycache__/, 
+
 node_modules/
 
 The project uses DynamoDB and optionally S3 for log storage. Make sure those services are set up in your AWS account.
