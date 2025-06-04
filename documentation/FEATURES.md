@@ -124,7 +124,7 @@ Tested all endpoints (e.g., /logs, /auth) via Postman:
 - React Frontend:
 
 Verified log filtering/search functionality.
-![Dashboard top](./documentation/pictures/DashboardTop.png)
+![Dashboard top](./pictures/DashboardTop.png)
 ![Dashboard lower](./pictures/DashboardLower.png)
 
 Tested Cognito login flow (Hosted UI → JWT token → API access).
