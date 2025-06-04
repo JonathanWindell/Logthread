@@ -30,30 +30,107 @@ The initial motivation comes from personal experience – managing logs locally 
 | Logger Client   | Python with Boto3                     |
 
 # 2: Planning & Design
-## Architecture 
 
 ## Logflow & User login
 The flows represent how the website/ app will transfer data through the layers. I’ve chosen AWS stack because it’s easier to get going. 
+![Log & User flow](./pictures/Log&UserFlow.png)
 
-// Insert pictures
-![Log & User flow](./pictures/architecture.png)
-
-
+## Architecture
+![Architecture](./pictures/Architecture.png)
 
 ## Architecture explained:
-### Log gathering
+#### Log gathering
 1: Client sends logs to the REST endpoint through API Gateway.
 2: API Gateway passes on to Lambda (LogHandler) that:
 Validates logging data.
 Adds metadata such as timestamp & user.
 Saves in DynamoDB or S3 depending on structure and user choice. 
 
-### Notifications
+#### Notifications
 3: SNS is integrated which let's user decide which level of logs to activate SNS at. Default is CRITICAL
 
-### Authentication & Frontend
+#### Authentication & Frontend
 4: Users login through Cognito Hosted UI.
 5: Frontend calls GET / logs through API Gateway.
 6: API endpoints retrieves data that is of relevance from DynamoDB and returns data to frontend.
+
+# 3: Implementation
+The logger is now feature-complete for core functionality, providing a robust tool for developers to integrate with their projects. While minor optimizations remain, the implementation covers all critical aspects of log collection, storage, alerting, and user interaction.
+
+### Key Achievements:
+#### AWS Stack Integration:
+Leveraged DynamoDB (structured logs) and S3 (archiving) for flexible storage.
+Implemented Cognito for authentication (optional but valuable for learning AWS services).
+Used Lambda + API Gateway for serverless log processing.
+
+#### Developer-Centric Design:
+Local-first approach: Designed to run seamlessly on local machines with easy customization.
+Modular code: Components like the Python logger client (boto3) and React frontend can be swapped or extended.
+
+#### Features Delivered:
+Real-time log filtering/search via the React+Vite UI.
+Email/SNS alerts for ERROR-level logs.
+Environment-aware configuration (.env support).
+
+### Pending Items:
+#### CI/CD Pipeline:
+Planned: Automate deployments using GitHub Actions + Serverless Framework.
+
+#### Monitoring:
+Future: Integrate CloudWatch for metrics/dashboards (stretch goal).
+
+#### Lessons Learned:
+AWS Best Practices: Gained hands-on experience with serverless architectures and IAM roles.
+Trade-offs: Cognito added complexity but deepened understanding of auth flows.
+Debugging: Instrumented Lambda logs extensively for troubleshooting.
+
+#### Future Enhancements:
+Add multi-language SDKs (Node.js, Java) for broader adoption.
+Support custom log parsing rules in DynamoDB.
+Explore OpenTelemetry integration for distributed tracing.
+
+# 4: Testing & QA
+Rigorous testing was performed at each development phase to ensure reliability and functionality. Below is a breakdown of the validation process:
+
+#### 1. Unit & Integration Testing
+- DynamoDB Connection:
+Validated log ingestion using a test Python logger:
+
+logger = Logger(level=LoggerEnum.DEBUG)
+logger.log("Testmessage: DEBUG-level", LoggerEnum.DEBUG)  # Verified in DynamoDB table
+
+Checked for:
+✓ Correct log level storage
+✓ Timestamp accuracy
+✓ Error handling for failed writes
+
+- SNS Alerting:
+Triggered ERROR-level logs to confirm email/SNS notifications:
+
+logger.log("CRITICAL ERROR: Systemkrasch", LoggerEnum.CRITICAL)
+send_critical_notification("Manual test SNS")
+
+#### 2. API & Frontend Validation
+- FastAPI Backend:
+
+Tested all endpoints (e.g., /logs, /auth) via Postman:
+![All Logs EndPoint](./pictures/APIEndpintLogs.png)
+
+- React Frontend:
+
+Verified log filtering/search functionality.
+![Dashboard top](./pictures/DashboardTop.png)
+![Dashboard lower](./pictures/DashboardLower.png)
+
+Tested Cognito login flow (Hosted UI → JWT token → API access).
+
+#### 3. Negative Testing
+Simulated failures:
+✓ Invalid API keys → 403 responses
+✓ DynamoDB throttling → Retry mechanism
+✓ Malformed logs → Graceful error handling
+
+![Error page](./pictures/404ErrorPage.png)
+  
 
 
