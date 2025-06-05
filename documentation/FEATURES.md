@@ -117,8 +117,8 @@ send_critical_notification("Manual test SNS")
 
 #### 2. API & Frontend Validation
 - FastAPI Backend:
+- Tested all endpoints (e.g., /logs, /auth) via Postman:
 
-Tested all endpoints (e.g., /logs, /auth) via Postman:
 ![All Logs EndPoint](./pictures/APIEndpointLogs.png)
 
 - React Frontend:
@@ -127,7 +127,7 @@ Verified log filtering/search functionality.
 ![Dashboard top](./pictures/DashboardTop.png)
 ![Dashboard lower](./pictures/DashboardLower.png)
 
-Tested Cognito login flow (Hosted UI → JWT token → API access).
+Tested Cognito login flow (Hosted UI → JWT toke → API access).
 
 #### 3. Negative Testing
 | Failure Simulation  | Handling Mechanism                 |
@@ -139,7 +139,7 @@ Tested Cognito login flow (Hosted UI → JWT token → API access).
 ![Error page](./pictures/404ErrorPage.png)
 
 # 5: Documentation
-You can find necessesary documentation at the top of this document!
+You can find necessesary documentation in the INSTALL & DOCUMENTATION files
 
 # 6: Deployment
 My plan is to deploy this on my home server for myself but people will be able to see how it works. To use it personally you will have to install your own
