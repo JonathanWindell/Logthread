@@ -1,0 +1,17 @@
+service: logthread-backend
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: eu-north-1
+
+functions:
+  api:
+    handler: app.backend.main.handler 
+    events:
+      - httpApi: '*'
+
+plugins:
+  - serverless-python-requirements
