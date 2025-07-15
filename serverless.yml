@@ -3,28 +3,29 @@ service: logthread-backend
 
 provider:
   name: aws
-  runtime: python3.11
+  runtime: python3.9
   region: eu-north-1
-
+  
   environment:
     SNS_TOPIC_ARN: ${env:SNS_TOPIC_ARN}
     COGNITO_REGION: ${env:COGNITO_REGION}
     CLIENT_ID: ${env:CLIENT_ID}
     USER_POOL_ID: ${env:USER_POOL_ID}
 
-iam:
-  role:
-    statements:
-      - Effect: "Allow"
-        Action:
-          - "dynamodb:PutItem"
-          - "dynamodb:Query"
-          - "dynamodb:Scan"
-        Resource: "arn:aws:dynamodb:eu-north-1:027625171538:table/Logs"
+  # FIX 2: Hela iam-blocket är nu korrekt indenterat under provider
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "dynamodb:PutItem"
+            - "dynamodb:Query"
+            - "dynamodb:Scan"
+          Resource: "arn:aws:dynamodb:eu-north-1:027625171538:table/Logs"
 
-      - Effect: "Allow"
-        Action: "sns:Publish"
-        Resource: ${env:SNS_TOPIC_ARN}
+        - Effect: "Allow"
+          Action: "sns:Publish"
+          Resource: ${env:SNS_TOPIC_ARN}
 
 functions:
   api:
