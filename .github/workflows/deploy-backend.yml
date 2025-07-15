@@ -10,7 +10,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     
-    # ÄNDRING: env-blocket ligger nu här, på jobb-nivå
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -36,8 +35,8 @@ jobs:
       - name: Install Serverless Framework v3 and dependencies
         run: |
           npm install -g serverless@3
-          npm install --save-dev server-python-requirements
+          # HÄR ÄR FIXEN: "serverless" istället för "server"
+          npm install --save-dev serverless-python-requirements
 
       - name: Serverless Deploy
-        # Notera: env-blocket är borttaget härifrån
         run: serverless deploy
