@@ -1,33 +1,30 @@
 frameworkVersion: '3'
-
 service: logthread-backend
 
 provider:
   name: aws
-  # ÄNDRING 1: Bytt till en version som stöds av Serverless v3
   runtime: python3.11
   region: eu-north-1
-  
-  # ÄNDRING 2: Använder ${env:VAR_NAME} för att läsa från miljön
+
   environment:
     SNS_TOPIC_ARN: ${env:SNS_TOPIC_ARN}
     COGNITO_REGION: ${env:COGNITO_REGION}
     CLIENT_ID: ${env:CLIENT_ID}
     USER_POOL_ID: ${env:USER_POOL_ID}
 
-  iam:
-    role:
-      statements:
-        - Effect: "Allow"
-          Action:
-            - "dynamodb:PutItem"
-            - "dynamodb:Query"
-            - "dynamodb:Scan"
-          Resource: "arn:aws:dynamodb:eu-north-1:027625171538:table/Logs"
+iam:
+  role:
+    statements:
+      - Effect: "Allow"
+        Action:
+          - "dynamodb:PutItem"
+          - "dynamodb:Query"
+          - "dynamodb:Scan"
+        Resource: "arn:aws:dynamodb:eu-north-1:027625171538:table/Logs"
 
-        - Effect: "Allow"
-          Action: "sns:Publish"
-          Resource: ${env:SNS_TOPIC_ARN}
+      - Effect: "Allow"
+        Action: "sns:Publish"
+        Resource: ${env:SNS_TOPIC_ARN}
 
 functions:
   api:
