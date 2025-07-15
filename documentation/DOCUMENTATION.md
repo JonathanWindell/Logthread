@@ -32,18 +32,24 @@ User must create IAM user, SNS & Cognito to get access to number of keys to be a
 #.gitignore
 
 #AWS config
-AWS_REGION=
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
+AWS_REGION=YOUR_REGION_HERE
+
+AWS_ACCESS_KEY_ID=YOUR_KEY_HERE
+
+AWS_SECRET_ACCESS_KEY=YOUR_KEY_HERE
 
 #SNS config
-SNS_TOPIC_ARN=
+SNS_TOPIC_ARN=YOUR_ARN_HERE
 
 #Cognito config
 COGNITO_REGION=
+
 CLIENT_ID=
+
 USER_POOL_ID=
+
 SECRET_KEY=
+
 DEBUG=true
 
 ## Log Levels
