@@ -1,21 +1,19 @@
-service: logthread-backend
+# Vi byter till version 3 för att slippa inloggningskravet
+frameworkVersion: '3'
 
-frameworkVersion: '4'
+service: logthread-backend
 
 provider:
   name: aws
   runtime: python3.12
   region: eu-north-1
   
-  # Miljövariabler för din Lambda-funktion.
-  # Dessa hämtas från GitHub Repository Secrets.
   environment:
     SNS_TOPIC_ARN: ${{ secrets.SNS_TOPIC_ARN }}
     COGNITO_REGION: ${{ secrets.COGNITO_REGION }}
     CLIENT_ID: ${{ secrets.CLIENT_ID }}
     USER_POOL_ID: ${{ secrets.USER_POOL_ID }}
 
-  # Behörigheter för din Lambda-funktion.
   iam:
     role:
       statements:

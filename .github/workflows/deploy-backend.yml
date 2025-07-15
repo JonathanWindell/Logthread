@@ -1,5 +1,5 @@
 # .github/workflows/deploy-backend.yml
-name: Deploy Backend to AWS
+name: Deploy Backend to AWS (v3)
 
 on:
   push:
@@ -18,14 +18,15 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Serverless Framework and dependencies
+      - name: Install Serverless Framework v3 and dependencies
         run: |
-          npm install -g serverless
+          # HÄR ÄR ÄNDRINGEN: Vi installerar specifikt version 3
+          npm install -g serverless@3
           npm install --save-dev serverless-python-requirements
 
       - name: Serverless Deploy
         run: serverless deploy
         env:
+          # Notera: SERVERLESS_ACCESS_KEY behövs inte längre och är borttagen
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
