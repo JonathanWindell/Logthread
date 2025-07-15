@@ -13,6 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' # Matchar vår runtime
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -20,13 +25,16 @@ jobs:
 
       - name: Install Serverless Framework v3 and dependencies
         run: |
-          # HÄR ÄR ÄNDRINGEN: Vi installerar specifikt version 3
           npm install -g serverless@3
           npm install --save-dev serverless-python-requirements
 
       - name: Serverless Deploy
         run: serverless deploy
         env:
-          # Notera: SERVERLESS_ACCESS_KEY behövs inte längre och är borttagen
+          # Dessa skapar miljövariablerna som serverless.yml läser med ${env:VAR_NAME}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SNS_TOPIC_ARN: ${{ secrets.SNS_TOPIC_ARN }}
+          COGNITO_REGION: ${{ secrets.COGNITO_REGION }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          USER_POOL_ID: ${{ secrets.USER_POOL_ID }}

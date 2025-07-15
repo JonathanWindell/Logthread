@@ -1,18 +1,19 @@
-# Vi byter till version 3 för att slippa inloggningskravet
 frameworkVersion: '3'
 
 service: logthread-backend
 
 provider:
   name: aws
-  runtime: python3.12
+  # ÄNDRING 1: Bytt till en version som stöds av Serverless v3
+  runtime: python3.11
   region: eu-north-1
   
+  # ÄNDRING 2: Använder ${env:VAR_NAME} för att läsa från miljön
   environment:
-    SNS_TOPIC_ARN: ${{ secrets.SNS_TOPIC_ARN }}
-    COGNITO_REGION: ${{ secrets.COGNITO_REGION }}
-    CLIENT_ID: ${{ secrets.CLIENT_ID }}
-    USER_POOL_ID: ${{ secrets.USER_POOL_ID }}
+    SNS_TOPIC_ARN: ${env:SNS_TOPIC_ARN}
+    COGNITO_REGION: ${env:COGNITO_REGION}
+    CLIENT_ID: ${env:CLIENT_ID}
+    USER_POOL_ID: ${env:USER_POOL_ID}
 
   iam:
     role:
@@ -26,7 +27,7 @@ provider:
 
         - Effect: "Allow"
           Action: "sns:Publish"
-          Resource: ${{ secrets.SNS_TOPIC_ARN }}
+          Resource: ${env:SNS_TOPIC_ARN}
 
 functions:
   api:
