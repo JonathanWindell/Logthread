@@ -2,14 +2,35 @@ service: logthread-backend
 
 frameworkVersion: '4'
 
+custom:
+  pythonRequirements:
+    dockerizePip: true
+
 provider:
   name: aws
   runtime: python3.12
   region: eu-north-1
+  environment: ${file(secrets.yml)}
+
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "dynamodb:PutItem"
+            - "dynamodb:GetItem"
+            - "dynamodb:Query"
+            - "dynamodb:Scan" 
+          Resource: "arn:aws:dynamodb:eu-north-1:027625171538:table/Logs" 
+
+        - Effect: "Allow"
+          Action:
+            - "sns:Publish"
+          Resource: ${file(secrets.yml):SNS_TOPIC_ARN} 
 
 functions:
   api:
-    handler: app.backend.main.handler 
+    handler: app.backend.main.handler
     events:
       - httpApi: '*'
 
