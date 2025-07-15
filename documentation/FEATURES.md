@@ -5,7 +5,7 @@
 
 # 1: Vision & Scope
 ## Project Description
-LogThread is a cloud-based logging service designed to streamline the way developers handle, view, and respond to application logs. Instead of combing through unstructured logs in the command line, Loggify enables centralized log management with clear filtering, real-time alerts, and a clean user interface.
+LogThread is a cloud-based logging service designed to streamline the way developers handle, view, and respond to application logs. Instead of combing through unstructured logs in the command line, LogThread enables centralized log management with clear filtering, real-time alerts, and a clean user interface.
 
 ## Motivation
 The initial motivation comes from personal experience – managing logs locally becomes inefficient as projects grow. I first got the idea when learning Java and creating a logger that became the base for this project. You can find the MVP on my github. The goal is to build a serverless, scalable logging platform to simplify log access, monitoring, and alerting and really learning more about the cloud as I think it will give me a good foundation and headstart when entering the work field. The first version will be tailored for personal use, with future plans to open it up to fellow developers for feedback and enhancements. 
@@ -117,8 +117,8 @@ send_critical_notification("Manual test SNS")
 
 #### 2. API & Frontend Validation
 - FastAPI Backend:
+- Tested all endpoints (e.g., /logs, /auth) via Postman:
 
-Tested all endpoints (e.g., /logs, /auth) via Postman:
 ![All Logs EndPoint](./pictures/APIEndpointLogs.png)
 
 - React Frontend:
@@ -127,7 +127,7 @@ Verified log filtering/search functionality.
 ![Dashboard top](./pictures/DashboardTop.png)
 ![Dashboard lower](./pictures/DashboardLower.png)
 
-Tested Cognito login flow (Hosted UI → JWT token → API access).
+Tested Cognito login flow (Hosted UI → JWT toke → API access).
 
 #### 3. Negative Testing
 | Failure Simulation  | Handling Mechanism                 |
@@ -139,7 +139,7 @@ Tested Cognito login flow (Hosted UI → JWT token → API access).
 ![Error page](./pictures/404ErrorPage.png)
 
 # 5: Documentation
-You can find necessesary documentation at the top of this document!
+You can find necessesary documentation in the INSTALL & DOCUMENTATION files
 
 # 6: Deployment
 My plan is to deploy this on my home server for myself but people will be able to see how it works. To use it personally you will have to install your own
