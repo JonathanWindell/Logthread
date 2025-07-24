@@ -6,10 +6,12 @@ import './style.css';
 import { AuthProvider } from "react-oidc-context";
 import { BrowserRouter } from "react-router-dom";
 
+
 const cognitoAuthConfig = {
   authority: import.meta.env.VITE_COGNITO_AUTHORITY,
   client_id: import.meta.env.VITE_COGNITO_CLIENT_ID,
-  redirect_uri: import.meta.env.VITE_REDIRECT_URI,
+  redirect_uri: import.meta.env.VITE_APP_BASE_URL,
+  post_logout_redirect_uri: import.meta.env.VITE_APP_BASE_URL, 
   response_type: "code",
   scope: "phone openid email",
 };
