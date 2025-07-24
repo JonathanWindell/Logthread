@@ -20,7 +20,7 @@ function S3ArchivedTable() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/archived/count');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/logs`);
         if (!response.ok) {
           throw new Error('Failed to fetch log statistics');
         }

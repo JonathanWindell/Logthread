@@ -23,7 +23,7 @@ function CriticalApiTable() {
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const ApiResponse = await fetch('http://localhost:8000/api/logs/level/CRITICAL'); 
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/logs`);
         if (!ApiResponse.ok) {
           throw new Error('Something went wrong');
         }
