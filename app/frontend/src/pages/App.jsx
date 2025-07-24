@@ -1,19 +1,11 @@
 import React from 'react';
 import { useAuth } from "react-oidc-context";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom"; // Lade till Link för exemplet
 import Dashboard from './Dashboard';
 import PageNotFound from './PageNotFound';
 
 function App() {
   const auth = useAuth();
-
-  // Handle AWS Cognito logout with redirect to homepage
-  const signOutRedirect = () => {
-    const clientId = "46qchek76kro8ut5pfcld5nf72";
-    const logoutUri = "http://localhost:5173";
-    const cognitoDomain = "https://eu-north-1pyu6orclm.auth.eu-north-1.amazoncognito.com";
-    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
-  };
 
   // Show loading state while auth is initializing
   if (auth.isLoading) {
@@ -32,7 +24,10 @@ function App() {
         auth.isAuthenticated ? (
           <div>
             <pre> Hello: {auth.user?.profile.email} </pre>
-            <a href="/dashboard">Go to dashboard</a>
+            <Link to="/dashboard">Go to dashboard</Link> 
+          
+            <button className="btn" onClick={() => auth.signoutRedirect()}>Logga ut</button>
+
           </div>
         ) : (
           <div className="login-container">
