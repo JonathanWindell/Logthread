@@ -18,7 +18,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/logs');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/logs`);
         if (!response.ok) throw new Error('Failed to fetch logs');
         const data = await response.json();
         setLogsData(data.logs || []);
