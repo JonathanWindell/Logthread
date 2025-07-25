@@ -2,8 +2,6 @@
 #Enviroment variables
 .env
 *.env
-frontend/.env.development
-frontend/.env.production
 
 #Virtual enviroments
 venv/
@@ -17,9 +15,6 @@ __pycache__/
 
 #Node 
 node_modules
-
-#YML 
-secrets.yml
 
 #Serverless Framework
 .Serverless
