@@ -1,50 +1,44 @@
+// frontend/src/pages/App.jsx
+
 import React from 'react';
-import { useAuth } from "react-oidc-context";
-import { Routes, Route, Link } from "react-router-dom"; // Lade till Link för exemplet
+import { Routes, Route, Link } from "react-router-dom";
 import Dashboard from './Dashboard';
+import ApiTable from './ApiTable'; // Se till att denna fil/komponent finns
 import PageNotFound from './PageNotFound';
 
 function App() {
-  const auth = useAuth();
-
-  // Show loading state while auth is initializing
-  if (auth.isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  // Show error state if auth fails
-  if (auth.error) {
-    return <div>Encountering error... {auth.error.message}</div>;
-  }
+  // All logik med useAuth, isLoading, isAuthenticated etc. är borttagen.
+  // Vi renderar applikationen direkt, utan krav på inloggning.
 
   return (
-    <Routes>
-      {/* Home route - shows login page or welcome message based on auth status */}
-      <Route path="/" element={
-        auth.isAuthenticated ? (
-          <div>
-            <pre> Hello: {auth.user?.profile.email} </pre>
-            <Link to="/dashboard">Go to dashboard</Link> 
-          
-            <button className="btn" onClick={() => auth.signoutRedirect()}>Logga ut</button>
-
-          </div>
-        ) : (
+    <div>
+      <nav>
+        {/* En enkel navigationsmeny */}
+        <Link to="/">Home</Link> | <Link to="/dashboard">Dashboard</Link>
+      </nav>
+      <hr />
+      <Routes>
+        {/* Startsidan är nu en enkel välkomstsida */}
+        <Route path="/" element={
           <div className="login-container">
             <h1>LogThread</h1>
             <div className="tagline">Weave through your logs seamlessly.</div>
-            <p>Sign in or Register to access dashboard</p>
-            <button className="btn" onClick={() => auth.signinRedirect()}>Register / Sign in</button>
+            
+            {/* Länk till dashboard som du föreslog */}
+            <Link to="/dashboard" className="btn">To Dashboard</Link>
           </div>
-        )
-      } />
+        } />
 
-      {/* Dashboard route */}
-      <Route path="/dashboard" element={<Dashboard />} />
+        {/* Dashboard-sidan är nu direkt tillgänglig */}
+        <Route path="/dashboard" element={<Dashboard />} />
+        
+        {/* (Exempel) En väg till alla loggar, om du har en sådan komponent */}
+        <Route path="/logs" element={<ApiTable />} />
 
-      {/* Catch-all route for 404 pages */}
-      <Route path="*" element={<PageNotFound />} />
-    </Routes>
+        {/* Fångar alla andra sidor och visar en 404-sida */}
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </div>
   );
 }
 
