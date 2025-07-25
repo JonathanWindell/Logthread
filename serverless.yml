@@ -12,7 +12,6 @@ provider:
     CLIENT_ID: ${env:CLIENT_ID}
     USER_POOL_ID: ${env:USER_POOL_ID}
 
-  # FIX 2: Hela iam-blocket är nu korrekt indenterat under provider
   iam:
     role:
       statements:
