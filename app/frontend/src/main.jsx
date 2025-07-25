@@ -10,6 +10,7 @@ const root = createRoot(document.getElementById("root"));
 
 root.render(
   <StrictMode>
+    {/* AuthProvider och dess konfiguration är nu helt borttagna */}
     <BrowserRouter>
       <App />
     </BrowserRouter>
