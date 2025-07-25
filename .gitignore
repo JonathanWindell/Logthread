@@ -2,6 +2,8 @@
 #Enviroment variables
 .env
 *.env
+frontend/.env.development
+frontend/.env.production
 
 #Virtual enviroments
 venv/
