@@ -13,8 +13,7 @@ app.include_router(logs_router, prefix="/api")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173", 
-        "https://main.d11utrgfcxhvkq.amplifyapp.com" 
+        "http://localhost:5173"
     ],   
     allow_credentials=True,
     allow_methods=["*"],
