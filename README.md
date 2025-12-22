@@ -29,11 +29,11 @@ Any contributions you make are **greatly appreciated**.
 
 1. **Fork the Project**: Click the 'Fork' button at the top to create your own copy.
 2. **Create a Feature Branch**: 
-   `git checkout -b feature/amazing-template`
+   `git checkout -b feature/user-feature`
 3. **Commit Your Changes**: 
-   `git commit -m 'Add some AmazingTemplate'`
+   `git commit -m 'Add some Feature'`
 4. **Push to the Branch**: 
-   `git push origin feature/amazing-template`
+   `git push origin feature/user-feature`
 5. **Open a Pull Request**: Submit your changes for review through GitHub.
 
 # License
