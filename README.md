@@ -23,5 +23,18 @@ I'm Jonathan and I develop projects in my sparetime that help myself and others 
 - [Linkedin](https://www.linkedin.com/in/jonathan-windell-418a55232/)
 - [Portfolio](https://portfolio.jonathans-labb.org/)
 
+# Contributions
+Contributions make the open-source community an amazing place to learn and inspire. 
+Any contributions you make are **greatly appreciated**.
+
+1. **Fork the Project**: Click the 'Fork' button at the top to create your own copy.
+2. **Create a Feature Branch**: 
+   `git checkout -b feature/amazing-template`
+3. **Commit Your Changes**: 
+   `git commit -m 'Add some AmazingTemplate'`
+4. **Push to the Branch**: 
+   `git push origin feature/amazing-template`
+5. **Open a Pull Request**: Submit your changes for review through GitHub.
+
 # License
 Distributed under the MIT License. See `LICENSE` file for more information.
