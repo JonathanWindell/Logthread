@@ -6,7 +6,7 @@ import './style.css';
 import { AuthProvider } from "react-oidc-context";
 import { BrowserRouter } from "react-router-dom";
 
-
+/* Call on cognito values*/
 const cognitoAuthConfig = {
   authority: import.meta.env.VITE_COGNITO_AUTHORITY,
   client_id: import.meta.env.VITE_COGNITO_CLIENT_ID,
