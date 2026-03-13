@@ -30,11 +30,11 @@ By leveraging **FastAPI** for the backend and the **AWS Stack** for infrastructu
 
 **Log & User Flow**
 
-![Log & User flow](./pictures/Log&UserFlow.png)
+![Log & User flow](./images/LogUserFlow.png)
 
 **Infrastructure Architecture**
 
-![Architecture](./pictures/Architecture.png)
+![Architecture](./images/Architecture.png)
 
 </details>
 </br>
@@ -48,28 +48,26 @@ I'm Jonathan and I develop projects in my sparetime that help myself and others 
 # Project Structure
 
 ```text
-├── .github/
-│   └── workflows/          
-│       └── deploy.yml      # GitHub Actions + Serverless Framework
-├── documentation/          # Feature breakdown and deep-dives
-├── frontend/               # React + Vite UI
-│   ├── src/
-│   └── package.json
-├── pictures/               # Architecture & UI screenshots
-├── src/
-│   ├── api/                # FastAPI Endpoints & Logic
-│   ├── handlers/           # AWS Lambda function logic
-│   ├── models/             # Pydantic schemas & DB models
-│   └── services/           # AWS Boto3 integrations (S3, Dynamo, SNS)
-├── tests/
-│   ├── conftest.py         # Pytest configuration
-│   └── test_api.py         # Integration tests for log ingestion
-├── .env.example            # Template for AWS & Cognito keys
-├── .gitignore              # Files to be ignored by Git
-├── docker-compose.yml      # Container orchestration for local dev
-├── main.py                 # Backend entry point
-├── requirements.txt        # Python dependencies
-└── README.md               # Main Documentation
+├── app/
+│   ├── backend/
+│   │   ├── apifiles/        # API Endpoints & Routing (LoggerAPI, S3Archive)
+│   │   ├── config/          # Environment & App Settings (settings.py)
+│   │   ├── logging/         # Core Logging Logic (Logger, MessageFormatter)
+│   │   ├── service/         # AWS Integrations (SNS Config, Handlers, Wrappers)
+│   │   └── main.py          # FastAPI Entry Point
+│   └── frontend/
+│       ├── src/
+│       │   ├── images/      # UI Assets
+│       │   ├── pages/       # React components (Dashboard, ApiTable, S3ArchivedTable)
+│       │   ├── main.jsx     # Frontend entry point
+│       │   └── style.css    # Global styling
+│       ├── index.html       # Vite entry page
+│       └── package.json     # Frontend dependencies
+├── images/                  # Project documentation assets
+├── .gitignore               # Files to be ignored by Git
+├── LICENSE                  # MIT License
+├── README.md                # Main Documentation
+└── requirements.txt         # Python Backend dependencies
 ```
 
 Quick Start
@@ -118,9 +116,10 @@ git clone https://github.com/your-account/logthread.git
 cd logthread
 
 ### 2. Create virtual enviroment
-python -m venv venv
-source venv/bin/activate   # macOS/Linux
-venv\Scripts\activate      # windows
+`python -m venv venv`
+- `source venv/bin/activate`   # macOS/Linux
+
+- `venv\Scripts\activate`      # windows
 
 ### 3. Install dependencies
 
@@ -143,7 +142,7 @@ Swagger Docs: http://localhost:8000/docs
 
 ## 1. Navigate to frontend folder
 
-cd frontend
+`cd frontend`
 
 ### 2. Install frontend dependencies
 

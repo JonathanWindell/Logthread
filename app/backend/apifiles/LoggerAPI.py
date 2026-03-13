@@ -23,11 +23,31 @@ s3 = boto3.client(
 
 table = dynamodb.Table('Logs')
 
-# Basic CRUD operations
 def send_log(item: dict):
+    """
+    Writes a new log entry to the DynamoDB table.
+
+    Args:
+        item (dict): A dictionary representing the log record, including required keys like 'log_id'.
+
+    Returns:
+        None
+    """
     table.put_item(Item=item)
 
-def get_log(log_id):
+def get_log(log_id: str):
+    """
+    Retrieves a specific log entry from DynamoDB by its unique ID.
+
+    Args:
+        log_id (str): The unique identifier for the log entry.
+
+    Returns:
+        dict: The log item if found, otherwise None.
+
+    Raises:
+        Exception: If there is an error communicating with the DynamoDB resource.
+    """
     try:
         response = table.get_item(
             Key = {
@@ -40,7 +60,17 @@ def get_log(log_id):
         return None
 
 def get_all_items():
-    # Note: Expensive operation for large tables
+    """
+    Performs a full table scan to retrieve all log entries.
+
+    Note: This is an expensive operation for large tables and should be used sparingly.
+
+    Returns:
+        list: A list of dictionaries representing all items in the table.
+
+    Raises:
+        ClientError: If the scan operation fails due to AWS service limits or permissions.
+    """
     try:
         response = table.scan()
         return response.get('Items', [])
@@ -49,7 +79,18 @@ def get_all_items():
         return []
 
 def get_logs_by_level(level: str):
-    # Filter logs by severity level using scan
+    """
+    Filters logs based on their severity level using a table scan.
+
+    Args:
+        level (str): The severity level to filter by (e.g., 'INFO', 'ERROR').
+
+    Returns:
+        list: A list of log items matching the specified level.
+
+    Raises:
+        ClientError: If the filtered scan operation fails.
+    """
     try:
         response = table.scan(
             FilterExpression='#level = :level_value',
@@ -62,7 +103,17 @@ def get_logs_by_level(level: str):
         return []
 
 def get_number_of_logs_per_level():
-    # Count logs at each level without retrieving data
+    """
+    Aggregates the total count of logs for each predefined severity level.
+
+    Uses the 'Select=COUNT' parameter to minimize data transfer by not retrieving full items.
+
+    Returns:
+        dict: A mapping of log levels to their respective counts.
+
+    Raises:
+        ClientError: If the counting operation fails during any of the level scans.
+    """
     levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
     counts = {}
     
@@ -80,10 +131,20 @@ def get_number_of_logs_per_level():
     except ClientError as e:
         print(f"Error: {e}")
         return {}
-    
-# S3 operations
+
 def get_archived_log_count_s3():
-    # Count archived logs in S3 bucket
+    """
+    Counts the number of archived log files stored in the S3 bucket.
+
+    Args:
+        None (Uses environment/config bucket names).
+
+    Returns:
+        int: The total number of objects found under the 'archived/' prefix.
+
+    Raises:
+        Exception: If the S3 list_objects_v2 call fails.
+    """
     try:
         response = s3.list_objects_v2(Bucket="mylogthreadbucket", Prefix="archived/")
         objects = response.get("Contents", [])
@@ -92,12 +153,31 @@ def get_archived_log_count_s3():
         print(f"Error counting archived logs: {e}")
         return 0
 
-# Utility functions
 def get_item_by_id(item_id: str):
+    """
+    A utility wrapper to fetch a log by its ID.
+
+    Args:
+        item_id (str): The unique identifier for the log.
+
+    Returns:
+        dict: The log item retrieved from DynamoDB.
+    """
     return get_log(item_id)
 
 def query_items_by_user(user_id: str):
-    # Find logs by user ID, checking attribute exists first
+    """
+    Searches for all logs associated with a specific user ID.
+
+    Args:
+        user_id (str): The unique identifier of the user.
+
+    Returns:
+        list: A list of logs attributed to the user.
+
+    Raises:
+        ClientError: If the scan with FilterExpression fails.
+    """
     try:
         response = table.scan(
             FilterExpression='attribute_exists(user_id) AND user_id = :uid',

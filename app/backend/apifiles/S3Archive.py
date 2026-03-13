@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from boto3.dynamodb.conditions import Attr
 from app.backend.config.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, REGION
 
+# Initialize AWS resources
 dynamodb = boto3.resource(
     'dynamodb',
     region_name=REGION,
@@ -12,6 +13,7 @@ dynamodb = boto3.resource(
 )
 
 table = dynamodb.Table('Logs')
+
 s3 = boto3.client(
     's3',
     region_name=REGION,
@@ -20,7 +22,25 @@ s3 = boto3.client(
 )
 
 def archive_old_logs():
-    #Get all logs
+    """
+    Archives logs from DynamoDB to S3 based on age and a retention threshold.
+
+    The function performs a two-step process:
+    1. Counts total logs in DynamoDB. If 200 or fewer exist, archiving is skipped.
+    2. If over 200 logs exist, it identifies logs older than 30 days and moves 
+       them to S3 until only 200 logs remain or no more old logs are found.
+
+    Args:
+        None
+
+    Returns:
+        dict: A summary containing the number of logs successfully 'archived'.
+
+    Raises:
+        ClientError: If DynamoDB scan/delete or S3 put_object operations fail.
+        Exception: For general processing errors during JSON serialization or logic.
+    """
+    # Get all logs
     total_logs = 0
     last_evaluated_key = None
     while True:
@@ -33,22 +53,22 @@ def archive_old_logs():
         if not last_evaluated_key:
             break
 
-    #Count if total logs are under 200 no archive
+    # Count if total logs are under 200 no archive
     if total_logs <= 200:
         print("200 eller färre loggar i DynamoDB, arkivering avbryts.")
         return {"archived": 0}
 
-    #Count number of logs to archive
+    # Count number of logs to archive
     to_archive = total_logs - 200
     thirty_days_ago = (datetime.utcnow() - timedelta(days=30)).isoformat()
     archived = 0
     last_evaluated_key = None
 
-    #Scan for logs older than 30 days
+    # Scan for logs older than 30 days
     while archived < to_archive:
         scan_kwargs = {
             'FilterExpression': Attr('timestamp').lt(thirty_days_ago),
-            'Limit': 50  #Set limit for each scan
+            'Limit': 50  # Set limit for each scan
         }
         if last_evaluated_key:
             scan_kwargs['ExclusiveStartKey'] = last_evaluated_key
@@ -77,6 +97,3 @@ def archive_old_logs():
 
     print(f"Archived {archived} logs.")
     return {"archived": archived}
-
-
-
